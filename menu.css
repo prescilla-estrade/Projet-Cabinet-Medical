@@ -1,0 +1,50 @@
+body, ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: hsl(186, 95%, 31%);
+    margin-top: 0;
+    width: 100%;
+}
+
+.menu-item {
+    display: inline-block;
+}
+
+.menu-link {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 25px;
+    font-size: 18px;
+}
+
+.menu-link:hover {
+    background-color: #24afbe;
+}
+
+.logout{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 14px;
+}
+
+img{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    
+}
+
+.btn{
+    background-color: #048B9A;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}

@@ -1,0 +1,57 @@
+body {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    color: black;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+button {
+    margin: 50px;
+    display: inline-block;
+    padding: 15px 30px;
+    color: black;
+}
+
+.accueil button {
+    background-color: #24aFbe;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid black;
+    color: white;
+    height: 70px;
+    width: 160px; 
+}
+
+.accueil button a.bouton-link {
+    color: white;
+    text-decoration: none;
+}
+
+.bouton-container {
+    width: 100%;
+}
+
+.bouton-link {
+    text-decoration: none;
+    color: black;
+}
+
+#retour {
+    display: block;
+    margin-top: 80px;
+    color: black;
+}
+
+.table-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#supprimer {
+    color: red;
+}
