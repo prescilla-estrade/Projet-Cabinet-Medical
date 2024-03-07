@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <option value='M' " . ($usager['civilite'] == 'M' ? 'selected' : '') . ">M</option>
                             <option value='Mme' " . ($usager['civilite'] == 'Mme' ? 'selected' : '') . ">Mme</option>
                         </select><br>
-
+                        
                         <br><label for='adresse'>Adresse :</label>
                         <input type='text' name='adresse' value='{$usager['adresse']}'><br>
 

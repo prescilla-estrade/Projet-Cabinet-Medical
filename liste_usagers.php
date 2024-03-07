@@ -42,10 +42,13 @@ echo "
             <th>Civilité</th>
             <th>Nom</th>
             <th>Prénom</th>
+            <th>Sexe</th>
+            <th>Prénom</th>
             <th>Date de naissance</th>
             <th>Lieu de naissance</th>
             <th>Numéro de sécurité sociale</th>
             <th>Adresse</th>
+            <th>Code Postal</th>
             <th>Modifier</th>
             <th>Supprimer</th>
         </tr>
@@ -57,10 +60,12 @@ foreach ($res as $usager) {
         <td>{$usager['civilite']}</td>
         <td>{$usager['nom']}</td>
         <td>{$usager['prenom']}</td>
+        <td>{$usager['sexe']}</td>
         <td>{$usager['date_de_naiss']}</td>
         <td>{$usager['lieu_de_naiss']}</td>
         <td>{$usager['num_securite_sociale']}</td>
         <td>{$usager['adresse']}</td>
+        <td>{$usager['code_postal']}</td>
         <td>
             <form action='modifier_usagers.php' method='post'>
                 <input type='hidden' name='id_usager' value='{$usager['id_usager']}'>

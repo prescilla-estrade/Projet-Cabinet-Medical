@@ -22,7 +22,9 @@ require("verif_session.php");
                     </select><br>
                     <br> Nom <input type="text" name="nom"><br>
                     <br> Prénom <input type="text" name="prenom"><br>
+                    <br> Sexe <input type="text" name="sexe"><br>
                     <br> Adresse <input type="text" name="adresse"><br>
+                    <br> Code Postal <input type="text" name="code_postal"><br>
                     <br> Date de naissance <input type="date" name="date_de_naiss"><br>
                     <br> Lieu de naissance <input type="text" name="lieu_de_naiss"><br>
                     <br> Numéro de sécurité sociale <input type="text" name="num_securite_sociale" required maxlength="11"><br>
