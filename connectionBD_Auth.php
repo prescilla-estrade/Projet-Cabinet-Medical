@@ -1,6 +1,6 @@
 <?php
 $server = "localhost";
-$bd = "cabinet_medical";
+$bd = "authentification";
 $login = "admin";
 $mdp = "password";
 
