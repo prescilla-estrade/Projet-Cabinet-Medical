@@ -1,0 +1,101 @@
+CREATE OR REPLACE USER 'admin'@'localhost' IDENTIFIED BY 'password';
+DROP DATABASE IF EXISTS cabinet_medical_api;
+create database cabinet_medical_api;
+grant all privileges on cabinet_medical_api.* TO 'admin'@'localhost' identified by 'password';
+flush privileges;
+USE cabinet_medical_api;
+
+
+CREATE TABLE Usagers(
+   id_usager INT  AUTO_INCREMENT,
+   civilite TEXT,
+   nom VARCHAR(50),
+   prenom VARCHAR(50),
+   adresse TEXT,
+   date_de_naiss DATE,
+   lieu_de_naiss TEXT,
+   num_securite_sociale TEXT,
+   PRIMARY KEY(id_usager),
+   UNIQUE(num_securite_sociale)
+);
+
+CREATE TABLE Medecin(
+   id_medecin INT AUTO_INCREMENT,
+   nom TEXT,
+   prenom TEXT,
+   civilite VARCHAR(50),
+   PRIMARY KEY(id_medecin)
+);
+
+CREATE TABLE Avoir(
+   id_usager INT,
+   Referent BOOLEAN,
+   id_medecin INT NOT NULL,
+   PRIMARY KEY(id_usager),
+   FOREIGN KEY(id_usager) REFERENCES Usagers(id_usager) ON DELETE CASCADE,
+   FOREIGN KEY(id_medecin) REFERENCES Medecin(id_medecin) ON DELETE CASCADE
+);
+
+
+CREATE TABLE Consultation(
+   id_consult INT AUTO_INCREMENT,
+   date_consult DATE NOT NULL,
+   heure_consult TIME NOT NULL,
+   duree_consult TINYINT NOT NULL,
+   id_medecin INT NOT NULL,
+   id_usager INT NOT NULL,
+   PRIMARY KEY(id_consult),
+   UNIQUE(id_medecin, date_consult, heure_consult),
+   UNIQUE(id_usager, date_consult, heure_consult),
+   FOREIGN KEY(id_usager) REFERENCES Usagers(id_usager) ON DELETE CASCADE,
+   FOREIGN KEY(id_medecin) REFERENCES Medecin(id_medecin) ON DELETE CASCADE
+
+);
+
+INSERT INTO Usagers (civilite, nom, prenom, adresse, date_de_naiss, lieu_de_naiss, num_securite_sociale) 
+VALUES 
+    ('M', 'Adams', 'Alice', 'adresse 1', '2001-01-01', 'Paris', '11111111111'),
+    ('Mme', 'Brown', 'Bob', 'adresse 2', '2002-02-02', 'Toulouse', '22222222222'),
+    ('M', 'Clark', 'Charlie', 'adresse 3', '1995-03-03', 'Lyon', '33333333333'),
+    ('Mme', 'Davis', 'David', 'adresse 4', '1960-04-04', 'Nice', '44444444444'),
+    ('M', 'Evans', 'Eve', 'adresse 5', '1970-05-05', 'Marseille', '55555555555'),
+    ('Mme', 'Frank', 'Frank', 'adresse 6', '1980-06-06', 'Rennes', '66666666666'),
+    ('M', 'Ghosh', 'Gina', 'adresse 7', '1990-07-07', 'Paris', '77777777777'),
+    ('Mme', 'Hill', 'Harry', 'adresse 8', '2000-08-08', 'Toulouse', '88888888888'),
+    ('M', 'Irwin', 'Iris', 'adresse 9', '2010-09-09', 'Lyon', '99999999999'),
+    ('Mme', 'Jones', 'John', 'adresse 10', '2020-10-10', 'Nice', '10101010101');
+
+
+INSERT INTO Medecin (nom, prenom, civilite)
+VALUES 
+    ('Smith', 'Samantha', 'Mme'),
+    ('Johnson', 'John', 'M'),
+    ('Williams', 'William', 'M'),
+    ('Jones', 'Jennifer', 'Mme');
+
+INSERT INTO Auth (username, mdp) 
+VALUES ( 'secretaire', '$iutinfo');
+
+INSERT INTO Consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult, id_consult)
+VALUES (1, 1, '2024-01-15', '10:00:00', '00:30:00',1),
+         (2, 2, '2024-01-20', '10:30:00', '00:45:00',2),
+         (3, 1, '2024-01-30', '11:00:00', '01:00:00',3),
+         (4, 3, '2024-01-22', '11:30:00', '01:00:00',4),
+         (5, 4, '2024-01-25', '12:00:00', '00:45:00',5),
+         (6, 2, '2024-01-27', '12:30:00', '00:30:00',6),
+         (7, 3, '2024-01-29', '13:00:00', '01:00:00',7),
+         (8, 4, '2024-01-31', '13:30:00', '00:30:00',8),
+         (9, 1, '2024-01-17', '14:00:00', '00:45:00',9),
+         (10, 2, '2024-01-19', '14:30:00', '00:45:00',10);
+
+INSERT INTO Avoir (id_usager, Referent, id_medecin)
+VALUES (1, true, 1),
+         (2, true, 2),
+         (3, true, 1),
+         (4, true, 3),
+         (5, true, 4),
+         (6, true, 2),
+         (7, true, 3),
+         (8, true, 4),
+         (9, true, 1),
+         (10, true, 2);

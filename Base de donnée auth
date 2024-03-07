@@ -1,0 +1,27 @@
+CREATE OR REPLACE USER 'admin'@'localhost' IDENTIFIED BY 'password';
+DROP DATABASE IF EXISTS Authentification;
+create database Authentification;
+grant all privileges on Authentification.* TO 'admin'@'localhost' identified by 'password';
+flush privileges;
+USE Authentification;
+
+CREATE TABLE user_auth_v1(
+   login VARCHAR(50),
+   mdp VARCHAR(50) NOT NULL,
+   PRIMARY KEY(login)
+);
+
+CREATE TABLE user_auth_v2(
+   login VARCHAR(50),
+   mdp VARCHAR(50) NOT NULL,
+   id_auth VARCHAR(50) NOT NULL,
+   role VARCHAR(50),
+   PRIMARY KEY(login),
+   UNIQUE(id_auth)
+);
+INSERT INTO user_auth_v1 (login, mdp) 
+VALUES ( 'secretaire', '$iutinfo');
+
+INSERT INTO user_auth_v2 (login, mdp) 
+VALUES ( 'Samantha30', '$iutinfo', '1', 'Medecin');
+VALUES ('Alice40', '$iutinfo', '2', 'Usager');
