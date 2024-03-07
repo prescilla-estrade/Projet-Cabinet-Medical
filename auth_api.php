@@ -6,10 +6,10 @@ $http_method = $_SERVER['REQUEST_METHOD'];
 if($http_method=="POST") {
 
     $login=$_POST['login'];
-    $password=$_POST['password'];
+    $mdp=$_POST['mdp'];
 
-    $res = $linkpdo->prepare('SELECT login, password FROM authentification WHERE login = :login AND password = :password');
-    $res->execute(array('login' => $login, 'password' => $password));
+    $res = $linkpdo->prepare('SELECT login, mdp FROM user_auth_v1 WHERE login = :login AND mdp = :mdp');
+    $res->execute(array('login' => $login, 'mdp' => $mdp));
     $resultat = $res->fetchAll();
 
     if (count($resultat) > 0) {
