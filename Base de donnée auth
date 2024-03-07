@@ -22,6 +22,6 @@ CREATE TABLE user_auth_v2(
 INSERT INTO user_auth_v1 (login, mdp) 
 VALUES ( 'secretaire', '$iutinfo');
 
-INSERT INTO user_auth_v2 (login, mdp) 
-VALUES ( 'Samantha30', '$iutinfo', '1', 'Medecin');
-VALUES ('Alice40', '$iutinfo', '2', 'Usager');
+INSERT INTO user_auth_v2 (login, mdp, id_auth, role) 
+VALUES ( 'Samantha30', '$iutinfo', '1', 'Medecin'),
+    ('Alice40', '$iutinfo', '2', 'Usager');

@@ -73,8 +73,6 @@ VALUES
     ('Williams', 'William', 'M'),
     ('Jones', 'Jennifer', 'Mme');
 
-INSERT INTO Auth (username, mdp) 
-VALUES ( 'secretaire', '$iutinfo');
 
 INSERT INTO Consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult, id_consult)
 VALUES (1, 1, '2024-01-15', '10:00:00', '00:30:00',1),
