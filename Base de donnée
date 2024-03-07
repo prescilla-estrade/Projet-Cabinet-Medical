@@ -1,9 +1,9 @@
 CREATE OR REPLACE USER 'admin'@'localhost' IDENTIFIED BY 'password';
-DROP DATABASE IF EXISTS cabinet_medical;
-create database cabinet_medical;
-grant all privileges on cabinet_medical.* TO 'admin'@'localhost' identified by 'password';
+DROP DATABASE IF EXISTS cabinet_medical_api;
+create database cabinet_medical_api;
+grant all privileges on cabinet_medical_api.* TO 'admin'@'localhost' identified by 'password';
 flush privileges;
-USE cabinet_medical;
+USE cabinet_medical_api;
 
 
 CREATE TABLE Usagers(
@@ -37,15 +37,19 @@ CREATE TABLE Avoir(
 );
 
 
-CREATE TABLE Rdv(
-   id_rdv INT AUTO_INCREMENT,
-   id_usager INT,
-   id_medecin INT,
-   date_heure_rdv DATETIME,
-   duree TIME,
-   PRIMARY KEY(id_rdv),
+CREATE TABLE Consultation(
+   id_consult INT AUTO_INCREMENT,
+   date_consult DATE NOT NULL,
+   heure_consult TIME NOT NULL,
+   duree_consult TINYINT NOT NULL,
+   id_medecin INT NOT NULL,
+   id_usager INT NOT NULL,
+   PRIMARY KEY(id_consult),
+   UNIQUE(id_medecin, date_consult, heure_consult),
+   UNIQUE(id_usager, date_consult, heure_consult),
    FOREIGN KEY(id_usager) REFERENCES Usagers(id_usager) ON DELETE CASCADE,
    FOREIGN KEY(id_medecin) REFERENCES Medecin(id_medecin) ON DELETE CASCADE
+
 );
 
 CREATE TABLE Auth (
@@ -56,7 +60,7 @@ CREATE TABLE Auth (
 );
 
 
-INSERT INTO usagers (civilite, nom, prenom, adresse, date_de_naiss, lieu_de_naiss, num_securite_sociale) 
+INSERT INTO Usagers (civilite, nom, prenom, adresse, date_de_naiss, lieu_de_naiss, num_securite_sociale) 
 VALUES 
     ('M', 'Adams', 'Alice', 'adresse 1', '2001-01-01', 'Paris', '11111111111'),
     ('Mme', 'Brown', 'Bob', 'adresse 2', '2002-02-02', 'Toulouse', '22222222222'),
@@ -80,17 +84,17 @@ VALUES
 INSERT INTO Auth (username, mdp) 
 VALUES ( 'secretaire', '$iutinfo');
 
-INSERT INTO Rdv (id_usager, id_medecin, date_heure_rdv, duree)
-VALUES (1, 1, '2024-01-15 10:00:00', '00:30:00'),
-         (2, 2, '2024-01-20 10:30:00', '00:45:00'),
-         (3, 1, '2024-01-30 11:00:00', '01:00:00'),
-         (4, 3, '2024-01-22 11:30:00', '01:00:00'),
-         (5, 4, '2024-01-25 12:00:00', '00:45:00'),
-         (6, 2, '2024-01-27 12:30:00', '00:30:00'),
-         (7, 3, '2024-01-29 13:00:00', '01:00:00'),
-         (8, 4, '2024-01-31 13:30:00', '00:30:00'),
-         (9, 1, '2024-01-17 14:00:00', '00:45:00'),
-         (10, 2, '2024-01-19 14:30:00', '00:45:00');
+INSERT INTO Consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult, id_consult)
+VALUES (1, 1, '2024-01-15', '10:00:00', '00:30:00',1),
+         (2, 2, '2024-01-20', '10:30:00', '00:45:00',2),
+         (3, 1, '2024-01-30', '11:00:00', '01:00:00',3),
+         (4, 3, '2024-01-22', '11:30:00', '01:00:00',4),
+         (5, 4, '2024-01-25', '12:00:00', '00:45:00',5),
+         (6, 2, '2024-01-27', '12:30:00', '00:30:00',6),
+         (7, 3, '2024-01-29', '13:00:00', '01:00:00',7),
+         (8, 4, '2024-01-31', '13:30:00', '00:30:00',8),
+         (9, 1, '2024-01-17', '14:00:00', '00:45:00',9),
+         (10, 2, '2024-01-19', '14:30:00', '00:45:00',10);
 
 INSERT INTO Avoir (id_usager, Referent, id_medecin)
 VALUES (1, true, 1),
