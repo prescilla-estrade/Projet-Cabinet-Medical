@@ -40,6 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <br><label for='prenom'>Prénom :</label>
                         <input type='text' name='prenom' value='{$usager['prenom']}'><br>
 
+                        <br><label for='prenom'>Sexe :</label>
+                        <input type='text' name='sexe' value='{$usager['sexe']}'><br>
+
                         <br><label for='civilite'>Civilité :</label>
                         <select name='civilite'>
                             <option value=''>Choisissez une option</option>
@@ -49,6 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <br><label for='adresse'>Adresse :</label>
                         <input type='text' name='adresse' value='{$usager['adresse']}'><br>
+
+                        <br><label for='prenom'>Code postal :</label>
+                        <input type='text' name='code_postal' value='{$usager['code_postal']}'><br>
 
                         <br><label for='date_de_naiss'>Date de Naissance :</label>
                         <input type='date' name='date_de_naiss' value='{$usager['date_de_naiss']}'><br>
@@ -75,18 +81,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['modifier'])) {
             $nom = $_POST['nom'];
             $prenom = $_POST['prenom'];
+            $sexe = $_POST['sexe'];
             $civilite = $_POST['civilite'];
             $adresse = $_POST['adresse'];
+            $code_postal = $_POST['code_postal'];
             $date_de_naiss = $_POST['date_de_naiss'];
             $lieu_de_naiss = $_POST['lieu_de_naiss'];
             $num_securite_sociale = $_POST['num_securite_sociale'];
 
-            $sqlUpdate = 'UPDATE usagers SET nom = :nom, prenom = :prenom, civilite = :civilite, adresse = :adresse, date_de_naiss = :date_de_naiss, lieu_de_naiss = :lieu_de_naiss, num_securite_sociale = :num_securite_sociale WHERE id_usager = :id_usager';
+            $sqlUpdate = 'UPDATE usagers SET nom = :nom, prenom = :prenom, sexe = :sexe, civilite = :civilite, adresse = :adresse, code_postal = :code_postal, date_de_naiss = :date_de_naiss, lieu_de_naiss = :lieu_de_naiss, num_securite_sociale = :num_securite_sociale WHERE id_usager = :id_usager';
             $stmt = $linkpdo->prepare($sqlUpdate);
             $stmt->bindParam(':nom', $nom);
             $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':sexe', $sexe);
             $stmt->bindParam(':civilite', $civilite);
             $stmt->bindParam(':adresse', $adresse);
+            $stmt->bindParam(':code_postal', $code_postal);
             $stmt->bindParam(':date_de_naiss', $date_de_naiss);
             $stmt->bindParam(':lieu_de_naiss', $lieu_de_naiss);
             $stmt->bindParam(':num_securite_sociale', $num_securite_sociale);
