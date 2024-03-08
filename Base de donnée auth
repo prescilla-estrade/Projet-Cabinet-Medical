@@ -20,7 +20,7 @@ CREATE TABLE user_auth_v2(
    UNIQUE(id_auth)
 );
 INSERT INTO user_auth_v1 (login, mdp) 
-VALUES ( 'secretaire', '$iutinfo');
+VALUES ( 'secretaire1', 'password1234!');
 
 INSERT INTO user_auth_v2 (login, mdp, id_auth, role) 
 VALUES ( 'Samantha30', '$iutinfo', '1', 'Medecin'),
