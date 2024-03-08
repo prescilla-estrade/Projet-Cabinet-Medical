@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "0feff27f-de4c-4aef-91b5-7956ccad38e8",
-		"name": "NumEquipe NOM1-NOM2",
+		"name": "Equipe4 Iyamu-Estrade",
 		"description": "### **R4.01 : Gestion des consultations d'un cabinet médical avec contrôle d'accès.**\n\n2 APIS vont être nécessaires :\n\n**\\- AppMed** : API de gestions des ressources suivantes :\n\n- Médecin\n    \n- Patient\n    \n- Consultation\n    \n- Statistiques\n    \n\n**\\- AuthAPI** : API d'authentification indépendante de AppMed mais AppMed utilisera le format des jetons pour contrôles l'accès à ses ressources.\n\nPour faciliter l'évaluation des correcteurs, vous devrez obligatoirement automatiser la gestion du jeton afin que les correcteurs n'est pas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20008260",
