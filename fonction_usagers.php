@@ -47,7 +47,7 @@ function create_usagers($data) {
     $stmt->bindParam(':date_de_naiss', $data['date_de_naiss']);
     $stmt->bindParam(':lieu_de_naiss', $data['lieu_de_naiss']);
     $stmt->bindParam(':num_securite_sociale', $data['num_securite_sociale']);
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 function update_usagers($id, $data) {
