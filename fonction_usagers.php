@@ -52,19 +52,18 @@ function create_usagers($data) {
 
 function update_usagers($id, $data) {
     require('connectionBD_App.php');
-    $sql = "UPDATE usagers where id_iusager = :id_usager SET civilite = :civilite, nom = :nom, prenom = :prenom, sexe = :sexe, adresse = :adresse, code_postal = :code_postal, date_de_naiss = :date_de_naiss, lieu_de_naiss = :lieu_de_naiss, num_securite_sociale = :num_securite_sociale WHERE id = :id";
+    $fields = array_keys($data);
+    $placeholders = array_map(function($field) {
+        return "$field = :$field";
+    }, $fields);
+    $sql = "UPDATE usagers SET " . implode(", ", $placeholders) . " where id_usager = :id_usager";
     $stmt = $linkpdo->prepare($sql);
-    $stmt->bindParam(':civilite', $data['civilite']);
-    $stmt->bindParam(':nom', $data['nom']);
-    $stmt->bindParam(':prenom', $data['prenom']);
-    $stmt->bindParam(':sexe', $data['sexe']);
-    $stmt->bindParam(':adresse', $data['adresse']);
-    $stmt->bindParam(':code_postal', $data['code_postal']);
-    $stmt->bindParam(':date_de_naiss', $data['date_de_naiss']);
-    $stmt->bindParam(':lieu_de_naiss',$data['lieu_de_naiss']);
-    $stmt->bindParam(':num_securite_sociale', $data['num_securite_sociale']);
-    $stmt->bindParam(':id_usager', $id);
+    foreach ($data as $key => $value) {
+        $stmt->bindValue(":$key", $value);
+    }
+    $stmt->bindValue(":id_usager", $id);
     $stmt->execute();
+    return $stmt->rowCount();
 }
 
 function delete_usagers($id) {
