@@ -17,38 +17,29 @@ function deliver_response($status_code, $status_message, $data=null){
     echo $json_response;
 }
 
+/* 
 function read_consultations($linkpdo){
     require('connectionBD_App.php');
-
-    header("Content-Type:application/json; charset=utf-8");
     $sqlRead = "SELECT DISTINCT id_medecin, nom, prenom FROM medecin 
     WHERE id_medecin IN (SELECT DISTINCT id_medecin FROM rdv)";
     $stmt = $linkpdo->prepare($sqlRead);
     $stmt->bindParam('id', $id, PDO::FETCH_ALL);
     $stmt->execute();
-}
+}*/
 
 function create_consultations($linkpdo, $data['phrase']){
     require('connectionBD_App.php');
-    header("Content-Type:application/json; charset=utf-8");
-    $response['data'] = $data;
-    $sqlCreate = "CREATE "
-    $id_usager = $_GET['id_usager'];
-    $id_medecin = $_GET['id_medecin'];
-    $date_heure_rdv = $_GET['date_heure_rdv'];
-    $duree = $_GET[duree];
-
     $sqlCreate = "INSERT INTO Rdv (id_usager, id_medecin, date_heure_rdv, duree) VALUES (:id_usager, :id_medecin, :date_heure_rdv, :duree)";
     $stmt = $linkpdo->prepare($sqlCreate);
+    $stmt->bindParam(':id_usager', $data['id_usager']);
+    $stmt->bindParam(':date_heure_rdv', $data['date_heure_rdv']);
+    $stmt->bindParam(':duree', $data['duree']);
     $stmt->execute();
-    header('Location: liste_consultations.php');
-    exit();
 }
 
+/*
 function update_consultations($linkpdo, $id){
     require('connectionBD_App.php');
-
-    header("Content-Type:application/json; charset=utf8");
     $date_heure_rdv=$_GET['date_heure_rdv'];
     $duree = $_GET['duree'];
     $id_usager = $_GET['id_usager'];
@@ -66,15 +57,18 @@ function update_consultations($linkpdo, $id){
     $stmt->execute();
 }
 
-function delete_consultations($linkpdo, $id){
+function update_consultations_partially($id, $data) {
     require('connectionBD_App.php');
-    header("Content-Type:application/json; charset=utf8");
-    $id_rdv = $_GET['id_rdv']; 
+}
+*/
 
+function delete_consultations($id){
+    require('connectionBD_App.php');
     $sqlDelete = "DELETE FROM Rdv WHERE id_rdv = :id_rdv";
     $stmt = $linkpdo->prepare($sqlDelete);
-    $stmt->bindParam(':id_rdv', $id_rdv, PDO::PARAM_INT);
+    $stmt->bindParam(':id_rdv', $id_rdv);
     $stmt->execute();
+    return $stmt->rowCount();
 }
 
 ?>
