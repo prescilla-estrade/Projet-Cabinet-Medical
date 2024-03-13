@@ -17,16 +17,14 @@ function deliver_response($status_code, $status_message, $data=null){
     echo $json_response;
 }
 
-function readMedecin($linkpdo){ /** liste_medecins */
+function get_medecins(){
     require('connectionBD_App.php');
-    /* header("Content-Type:application/json; charset=utf-8"); */
-    $sqlRead = "SELECT * FROM medecin";
-    $stmt = $linkpdo->prepare($sqlRead);
-    $stmt->bindParam('id', $id, PDO::FETCH_ALL);
-    $stmt->execute();
+    $res = $linkpdo->query('SELECT * FROM medecin');
+    $resultat = $res->fetchAll();
+    return $resultat;
 }
 
-function create_medecins($linkpdo, $data['phrase']){
+function create_medecins($data){
     require('connectionBD_App.php');
     header("Content-Type:application/json; charset=utf-8");
     $response['data'] = $data;
@@ -41,7 +39,7 @@ function create_medecins($linkpdo, $data['phrase']){
     exit();
 }
 
-function update_medecins($linkpdo, $data['phrase']){
+function update_medecins($id, $data){
     require('connectionBD_App.php');
     
     $civilite = $_POST['civilite'];
@@ -60,7 +58,7 @@ function update_medecins($linkpdo, $data['phrase']){
     exit();
 }
 
-function delete_medecins($linkpdo, $data['phrase']){
+function delete_medecins($id){
     require('connectionBD_App.php');
     $id_medecin = $_GET['id_medecin'];
     $linkpdo->beginTransaction();
