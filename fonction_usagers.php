@@ -66,12 +66,29 @@ function update_usagers($id, $data) {
     return $stmt->rowCount();
 }
 
+function update_usagers_partially($id, $data) {
+    require('connectionBD_App.php');
+    $fields = array_keys($data);
+    $placeholders = array_map(function($field) {
+        return "$field = :$field";
+    }, $fields);
+    $sql = "UPDATE usagers SET " . implode(", ", $placeholders) . " where id_usager = :id_usager";
+    $stmt = $linkpdo->prepare($sql);
+    foreach ($data as $key => $value) {
+        $stmt->bindValue(":$key", $value);
+    }
+    $stmt->bindValue(":id_usager", $id);
+    $stmt->execute();
+    return $stmt->rowCount();
+}
+
 function delete_usagers($id) {
     require('connectionBD_App.php');
-    $sql = "DELETE FROM usagers WHERE id = :id";
+    $sql = "DELETE FROM usagers WHERE id_usager = :id_usager";
     $stmt = $linkpdo->prepare($sql);
-    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':id_usager', $id);
     $stmt->execute();
+    return $stmt->rowCount();
 }
 
 ?>
