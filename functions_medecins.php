@@ -24,21 +24,27 @@ function get_medecins(){
     return $resultat;
 }
 
-function create_medecins($data){
+function get_medecins_id($id) {
     require('connectionBD_App.php');
-    header("Content-Type:application/json; charset=utf-8");
-    $response['data'] = $data;
-    $civilite = $_POST['civilite'];
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $sqlCreate = "INSERT INTO medecin(civilite, nom, prenom) VALUES(:civilite, :nom, :prenom)";
-    $stmt = $linkpdo->prepare($sqlCreate);
-    $stmt->execute(array('civilite' => $civilite, 'nom' => $nom, 'prenom' => $prenom));
-    echo 'Le médecin a bien été ajouté.';
-    header('Location: liste_medecins.php');
-    exit();
+    $sql = "SELECT * FROM medecin WHERE id_medecin = :id_medecin";
+    $stmt = $linkpdo->prepare($sql);
+    $stmt->bindParam(':id_medecin', $id);
+    $stmt->execute();
+    $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $resultat;
 }
 
+function create_medecins($data){
+    require('connectionBD_App.php');
+    $sqlCreate = "INSERT INTO medecin(civilite, nom, prenom) VALUES(:civilite, :nom, :prenom)";
+    $stmt = $linkpdo->prepare($sqlCreate);
+    $stmt->bindParam(':civilite', $data['civilite']);
+    $stmt->bindParam(':nom', $data['nom']);
+    $stmt->bindParam(':prenom', $data['prenom']);
+    return $stmt->execute();
+}
+
+/* 
 function update_medecins($id, $data){
     require('connectionBD_App.php');
     
@@ -58,17 +64,17 @@ function update_medecins($id, $data){
     exit();
 }
 
+function update_medecins_partially($id, $data) {
+    require('connectionBD_App.php');
+} */
+
 function delete_medecins($id){
     require('connectionBD_App.php');
-    $id_medecin = $_GET['id_medecin'];
-    $linkpdo->beginTransaction();
     $sqlDelete = "DELETE FROM Medecin WHERE id_medecin = :id_medecin";
-    $stmtMedecin = $linkpdo->prepare($sqlDeleteMedecin);
-    $stmtMedecin->bindParam(':id_medecin', $id_medecin, PDO::PARAM_INT);
+    $stmtMedecin = $linkpdo->prepare($sqlDelete);
+    $stmtMedecin->bindParam(':id_medecin', $id_medecin);
     $stmtMedecin->execute();
-    echo 'Suppression réussie.';
-    header("Location: liste_medecins.php");
-    exit();
+    return $stmt->rowCount();
 }
 
 ?>
