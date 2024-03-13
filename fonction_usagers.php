@@ -50,20 +50,20 @@ function create_usagers($data) {
     $stmt->execute();
 }
 
-function update_usagers($id) {
+function update_usagers($id, $data) {
     require('connectionBD_App.php');
-    $sql = "UPDATE usagers SET civilite = :civilite, nom = :nom, prenom = :prenom, sexe = :sexe, adresse = :adresse, code_postal = :code_postal, date_de_naiss = :date_de_naiss, lieu_de_naiss = :lieu_de_naiss, num_securite_sociale = :num_securite_sociale WHERE id = :id";
+    $sql = "UPDATE usagers where id_iusager = :id_usager SET civilite = :civilite, nom = :nom, prenom = :prenom, sexe = :sexe, adresse = :adresse, code_postal = :code_postal, date_de_naiss = :date_de_naiss, lieu_de_naiss = :lieu_de_naiss, num_securite_sociale = :num_securite_sociale WHERE id = :id";
     $stmt = $linkpdo->prepare($sql);
-    $stmt->bindParam(':civilite', $_POST['civilite']);
-    $stmt->bindParam(':nom', $_POST['nom']);
-    $stmt->bindParam(':prenom', $_POST['prenom']);
-    $stmt->bindParam(':sexe', $_POST['sexe']);
-    $stmt->bindParam(':adresse', $_POST['adresse']);
-    $stmt->bindParam(':code_postal', $_POST['code_postal']);
-    $stmt->bindParam(':date_de_naiss', $_POST['date_de_naiss']);
-    $stmt->bindParam(':lieu_de_naiss', $_POST['lieu_de_naiss']);
-    $stmt->bindParam(':num_securite_sociale', $_POST['num_securite_sociale']);
-    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':civilite', $data['civilite']);
+    $stmt->bindParam(':nom', $data['nom']);
+    $stmt->bindParam(':prenom', $data['prenom']);
+    $stmt->bindParam(':sexe', $data['sexe']);
+    $stmt->bindParam(':adresse', $data['adresse']);
+    $stmt->bindParam(':code_postal', $data['code_postal']);
+    $stmt->bindParam(':date_de_naiss', $data['date_de_naiss']);
+    $stmt->bindParam(':lieu_de_naiss',$data['lieu_de_naiss']);
+    $stmt->bindParam(':num_securite_sociale', $data['num_securite_sociale']);
+    $stmt->bindParam(':id_usager', $id);
     $stmt->execute();
 }
 
