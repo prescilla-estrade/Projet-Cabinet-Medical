@@ -55,16 +55,24 @@ function get_repartition_usagers() {
             }
         }
     }
+    return array(
+        "moins25Hommes" => $moins25Hommes,
+        "moins25Femmes" => $moins25Femmes,
+        "entre25et50Hommes" => $entre25et50Hommes,
+        "entre25et50Femmes" => $entre25et50Femmes,
+        "plus50Hommes" => $plus50Hommes,
+        "plus50Femmes" => $plus50Femmes
+    );
 }
 
-function get_durée_consultation() {
+function get_duree_consultation() {
     require('connectionBD_App.php');
     $query = "SELECT CONCAT(Medecin.nom, ' ', Medecin.prenom) AS medecin, SEC_TO_TIME(SUM(TIME_TO_SEC(Consultation.duree_consult))) AS duree_totale 
     FROM Consultation, Medecin
     WHERE Consultation.id_medecin = Medecin.id_medecin
     GROUP BY Consultation.id_medecin";
     $consultationsResult = $linkpdo->query($query);
-    $durees = $consultationsResult->fetchAll(PDO::FETCH_ASSOC);
+    return $consultationsResult->fetchAll(PDO::FETCH_ASSOC);
 }
 
 ?>
