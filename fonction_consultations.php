@@ -34,7 +34,7 @@ function get_consultations_id($id) {
     return $resultat;
 }
 
-function create_consultations($linkpdo, $data['phrase']){
+function create_consultations($linkpdo, $data){
     require('connectionBD_App.php');
     $sqlCreate = "INSERT INTO consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult) VALUES (:id_usager, :id_medecin, :date_consult, :heure_consult, :duree_consult)";
     $stmt = $linkpdo->prepare($sqlCreate);
