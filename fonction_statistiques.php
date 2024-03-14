@@ -59,12 +59,12 @@ function get_repartition_usagers() {
 
 function get_durée_consultation() {
     require('connectionBD_App.php');
-    $query = "SELECT CONCAT(Medecin.nom, ' ', Medecin.prenom) AS medecin, SEC_TO_TIME(SUM(TIME_TO_SEC(Rdv.duree))) AS duree_totale 
-    FROM Rdv, Medecin
-    WHERE Rdv.id_medecin = Medecin.id_medecin
-    GROUP BY Rdv.id_medecin";
-    $rdvsResult = $linkpdo->query($query);
-    $durees = $rdvsResult->fetchAll(PDO::FETCH_ASSOC);
+    $query = "SELECT CONCAT(Medecin.nom, ' ', Medecin.prenom) AS medecin, SEC_TO_TIME(SUM(TIME_TO_SEC(Consultation.duree_consult))) AS duree_totale 
+    FROM Consultation, Medecin
+    WHERE Consultation.id_medecin = Medecin.id_medecin
+    GROUP BY Consultation.id_medecin";
+    $consultationsResult = $linkpdo->query($query);
+    $durees = $consultationsResult->fetchAll(PDO::FETCH_ASSOC);
 }
 
 ?>

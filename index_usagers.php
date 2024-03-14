@@ -67,3 +67,4 @@ switch ($http_method){
         deliver_response(400, "Bad Request");
         break;
 }
+?>
