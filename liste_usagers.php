@@ -1,23 +1,20 @@
 <?php
-require("verif_session.php");
+//require("verif_session.php");
+require("fonction_usagers.php");
 
-require("bd_connection.php");
-
-$sqlQuery = 'SELECT * FROM usagers';
-$resultat = $linkpdo->prepare($sqlQuery);
-$resultat->execute();
-$res = $resultat->fetchAll();
+// Récupération des usagers depuis la base de données
+$res = get_usagers();
 
 echo "
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <meta charset='utf-8' />
-        <title>Liste des usagers</title>
-        <script src='retour.js'></script>
-        <link rel='stylesheet' type='text/css' href='menu.css'>
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
-        <link rel='stylesheet' type='text/css' href='styles.css'>
+<head>
+    <meta charset='utf-8' />
+    <title>Liste des usagers</title>
+    <script src='retour.js'></script>
+    <link rel='stylesheet' type='text/css' href='menu.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <link rel='stylesheet' type='text/css' href='styles.css'>
     <style>
         table, td, th {
             width: 80%;
@@ -25,35 +22,34 @@ echo "
             border-collapse: collapse;
         }
     </style>
-    </head>
-    <body>
-        <nav>
-            <ul class='menu-list'>
-                <li class='menu-item'><a class='menu-link' href='usager.php'>Usagers</a></li>
-                <li class='menu-item'><a class='menu-link' href='medecin.php'>Medecins</a></li>
-                <li class='menu-item'><a class='menu-link' href='consultation.php'>Consultations</a></li>
-                <li class='menu-item'><a class='menu-link' href='statistique.php'>Statistiques</a></li>
-            </ul>
-        </nav>
-        <h1> Liste des usagers </h1>
-        <div class='table-container'>
+</head>
+<body>
+    <nav>
+        <ul class='menu-list'>
+            <li class='menu-item'><a class='menu-link' href='usager.php'>Usagers</a></li>
+            <li class='menu-item'><a class='menu-link' href='medecin.php'>Medecins</a></li>
+            <li class='menu-item'><a class='menu-link' href='consultation.php'>Consultations</a></li>
+            <li class='menu-item'><a class='menu-link' href='statistique.php'>Statistiques</a></li>
+        </ul>
+    </nav>
+    <h1>Liste des usagers</h1>
+    <div class='table-container'>
         <table>
             <tr>
-            <th>Civilité</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Sexe</th>
-            <th>Prénom</th>
-            <th>Date de naissance</th>
-            <th>Lieu de naissance</th>
-            <th>Numéro de sécurité sociale</th>
-            <th>Adresse</th>
-            <th>Code Postal</th>
-            <th>Modifier</th>
-            <th>Supprimer</th>
-        </tr>
-    </body>";
+                <th>Civilité</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Sexe</th>
+                <th>Date de naissance</th>
+                <th>Lieu de naissance</th>
+                <th>Numéro de sécurité sociale</th>
+                <th>Adresse</th>
+                <th>Code Postal</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>";
 
+// Parcours des résultats et affichage dans le tableau
 foreach ($res as $usager) {
     echo "
     <tr>
@@ -73,24 +69,14 @@ foreach ($res as $usager) {
             </form>
         </td>
         <td>
-            <input type='hidden' name='id_usager' value='{$usager['id_usager']}'>
             <button id='btn_supprimer' onclick='confirmDelete({$usager['id_usager']})' class='icon'><i id='supprimer' class='fas fa-trash-alt'></i> Supprimer</button>
         </td>
-    </tr>
-    <script>
-        function confirmDelete(id_usager) {
-            var confirmation = confirm('Voulez-vous vraiment supprimer cet utilisateur ?');
-            if (confirmation) {
-                window.location.href = 'supprimer_usagers.php?id_usager=' + id_usager;
-            }
-        }
-    </script>";
+    </tr>";
 }
 
 echo "</table></div>";
 
 echo "<br>";
-echo "<script src='retour.js'></script>";
 echo "<button id='retour' onclick='retour()'><i class='fas fa-arrow-left'></i> Retour</button>";
-
+echo "</body></html>";
 ?>
