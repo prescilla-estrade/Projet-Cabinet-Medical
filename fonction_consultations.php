@@ -17,56 +17,72 @@ function deliver_response($status_code, $status_message, $data=null){
     echo $json_response;
 }
 
-/* 
-function read_consultations($linkpdo){
+function get_consultations() {
     require('connectionBD_App.php');
-    $sqlRead = "SELECT DISTINCT id_medecin, nom, prenom FROM medecin 
-    WHERE id_medecin IN (SELECT DISTINCT id_medecin FROM rdv)";
-    $stmt = $linkpdo->prepare($sqlRead);
-    $stmt->bindParam('id', $id, PDO::FETCH_ALL);
+    $res = $linkpdo->query('SELECT * FROM consultation');
+    $resultat = $res->fetchAll();
+    return $resultat;
+}
+
+function get_consultations_id($id) {
+    require('connectionBD_App.php');
+    $sql = "SELECT * FROM consultation WHERE id_consult = :id_consult";
+    $stmt = $linkpdo->prepare($sql);
+    $stmt->bindParam(':id_consult', $id);
     $stmt->execute();
-}*/
+    $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $resultat;
+}
 
 function create_consultations($linkpdo, $data['phrase']){
     require('connectionBD_App.php');
-    $sqlCreate = "INSERT INTO Rdv (id_usager, id_medecin, date_heure_rdv, duree) VALUES (:id_usager, :id_medecin, :date_heure_rdv, :duree)";
+    $sqlCreate = "INSERT INTO consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult) VALUES (:id_usager, :id_medecin, :date_consult, :heure_consult, :duree_consult)";
     $stmt = $linkpdo->prepare($sqlCreate);
     $stmt->bindParam(':id_usager', $data['id_usager']);
-    $stmt->bindParam(':date_heure_rdv', $data['date_heure_rdv']);
-    $stmt->bindParam(':duree', $data['duree']);
+    $stmt->bindParam(':id_medecin', $data['id_medecin']);
+    $stmt->bindParam(':date_consult', $data['date_consult']);
+    $stmt->bindParam(':heure_consult', $data['heure_consult']);
+    $stmt->bindParam(':duree_consult', $data['duree_consult']);
     $stmt->execute();
 }
 
-/*
-function update_consultations($linkpdo, $id){
+function update_consultations($id, $data) {
     require('connectionBD_App.php');
-    $date_heure_rdv=$_GET['date_heure_rdv'];
-    $duree = $_GET['duree'];
-    $id_usager = $_GET['id_usager'];
-    $id_medecin = $_GET[id_medecin];
-    $sqlUpdate = "UPDATE Rdv SET date_heure_rdv = :date_heure_rdv, duree = :duree WHERE id_usager = :id_usager AND id_medecin = :id_medecin";
-    $stmt = $linkpdo->prepare($sqlUpdate);
-    $stmt->bindParam(':date_heure_rdv', $date_heure_rdv);
-    $stmt->bindParam(':duree', $duree);
-    $stmt->bindParam(':id_usager', $id_usager);
-    $stmt->bindParam(':id_medecin', $id_medecin);
+    $fields = array_keys($data);
+    $placeholders = array_map(function($field) {
+        return "$field = :$field";
+    }, $fields);
+    $sql = "UPDATE consultation SET " . implode(", ", $placeholders) . " where id_consult = :id_consult";
+    $stmt = $linkpdo->prepare($sql);
+    foreach ($data as $key => $value) {
+        $stmt->bindValue(":$key", $value);
+    }
+    $stmt->bindValue(":id_consult", $id);
     $stmt->execute();
-
-    echo "Consultation mise à jour avec succès !";
-    header('Location: liste_consultations.php');
-    $stmt->execute();
+    return $stmt->rowCount();
 }
 
 function update_consultations_partially($id, $data) {
     require('connectionBD_App.php');
+    $fields = array_keys($data);
+    $placeholders = array_map(function($field) {
+        return "$field = :$field";
+    }, $fields);
+    $sql = "UPDATE consultation SET " . implode(", ", $placeholders) . " where id_consult = :id_consult";
+    $stmt = $linkpdo->prepare($sql);
+    foreach ($data as $key => $value) {
+        $stmt->bindValue(":$key", $value);
+    }
+    $stmt->bindValue(":id_consult", $id);
+    $stmt->execute();
+    return $stmt->rowCount();
 }
-*/
 
 function delete_consultations($id){
     require('connectionBD_App.php');
-    $sqlDelete = "DELETE FROM Rdv WHERE id_rdv = :id_rdv";
+    $sqlDelete = "DELETE FROM consultation WHERE id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sqlDelete);
-    $stmt->bindParam(':id_rdv', $id_rdv);
+    $stmt->bindParam(':id_consult', $id_consult);
     $stmt->execute();
     return $stmt->rowCount();
 }

@@ -44,29 +44,37 @@ function create_medecins($data){
     return $stmt->execute();
 }
 
-/* 
-function update_medecins($id, $data){
+function update_medecins($id_medecin, $data) {
     require('connectionBD_App.php');
-    
-    $civilite = $_POST['civilite'];
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $id_medecin = $_GET['id'];
-    $sqlUpdate = "UPDATE medecin SET civilite = :civilite, nom = :nom, prenom = :prenom WHERE id_medecin = :id";
-    $stmt = $linkpdo->prepare($sqlUpdate);
-    $stmt->bindParam(':civilite', $civilite);
-    $stmt->bindParam(':nom', $nom);
-    $stmt->bindParam(':prenom', $prenom);
-    $stmt->bindParam(':id', $id_medecin);
+    $fields = array_keys($data);
+    $placeholders = array_map(function($field) {
+        return "$field = :$field";
+    }, $fields);
+    $sql = "UPDATE medecin SET " . implode(", ", $placeholders) . " where id_medecin = :id_medecin";
+    $stmt = $linkpdo->prepare($sql);
+    foreach ($data as $key => $value) {
+        $stmt->bindValue(":$key", $value);
+    }
+    $stmt->bindValue(":id_medecin", $id);
     $stmt->execute();
-    echo "Médecin mis à jour avec succès !";
-    header("Location: liste_medecins.php");
-    exit();
+    return $stmt->rowCount();
 }
 
-function update_medecins_partially($id, $data) {
+function update_medecins_partially($id_medecin, $data) {
     require('connectionBD_App.php');
-} */
+    $fields = array_keys($data);
+    $placeholders = array_map(function($field) {
+        return "$field = :$field";
+    }, $fields);
+    $sql = "UPDATE usagers SET " . implode(", ", $placeholders) . " where id_medecin = :id_medecin";
+    $stmt = $linkpdo->prepare($sql);
+    foreach ($data as $key => $value) {
+        $stmt->bindValue(":$key", $value);
+    }
+    $stmt->bindValue(":id_medecin", $id);
+    $stmt->execute();
+    return $stmt->rowCount();
+}
 
 function delete_medecins($id){
     require('connectionBD_App.php');
