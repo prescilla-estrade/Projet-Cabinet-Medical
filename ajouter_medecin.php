@@ -1,6 +1,48 @@
 <?php
-require("verif_session.php");
+//require("verif_session.php");
+require("fonction_medecins.php");
+
+// Vérification de la soumission du formulaire
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vérification des champs requis
+    $errors = array();
+    if (empty($_POST["civilite"])) {
+        $errors[] = "La civilité est requise.";
+    }
+    if (empty($_POST["nom"])) {
+        $errors[] = "Le nom est requis.";
+    }
+    if (empty($_POST["prenom"])) {
+        $errors[] = "Le prénom est requis.";
+    }
+
+    // Si aucune erreur n'est détectée, procéder à l'insertion dans la base de données
+    if (empty($errors)) {
+        // Préparation des données pour l'insertion
+        $data = array(
+            'civilite' => $_POST['civilite'],
+            'nom' => $_POST['nom'],
+            'prenom' => $_POST['prenom']
+        );
+
+        // Appel de la fonction pour créer un médecin dans la base de données
+        $result = create_medecins($data);
+
+        if ($result) {
+            echo "<script>alert('Medecin ajouté avec succès.');</script>";
+            // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions ici
+        } else {
+            echo "<script>alert('Erreur lors de l'ajout du médecin. Veuillez réessayer.');</script>";
+        }
+    } else {
+        // Affichage des erreurs
+        foreach ($errors as $error) {
+            echo "<script>alert('$error');</script>";
+        }
+    }
+}
 ?>
+
 <!DOCTYPE HTML>
 <html>
     <head>

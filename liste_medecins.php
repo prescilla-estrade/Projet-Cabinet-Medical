@@ -1,13 +1,10 @@
 <?php
 
-require("verif_session.php");
+//require("verif_session.php");
+require("fonction_medecins.php");
 
-require("bd_connection.php");
-
-$sqlQuery = 'SELECT * FROM medecin';
-$resultat = $linkpdo->prepare($sqlQuery);
-$resultat->execute();
-$res = $resultat->fetchAll();
+//récupération des médecins depuis la base de données
+$res = get_medecins();
 
 echo "
 <!DOCTYPE HTML>
