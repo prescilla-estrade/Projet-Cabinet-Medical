@@ -1,13 +1,13 @@
 <?php
 require("bd_connection.php");
 
-if (isset($_GET['id_rdv'])) {
+if (isset($_GET['id_consult'])) {
     try {
-        $id_rdv = $_GET['id_rdv']; 
+        $id_rdv = $_GET['id_consult']; 
 
-        $sqlDelete = "DELETE FROM Rdv WHERE id_rdv = :id_rdv";
+        $sqlDelete = "DELETE FROM Consultation WHERE id_consult = :id_consult";
         $stmt = $linkpdo->prepare($sqlDelete);
-        $stmt->bindParam(':id_rdv', $id_rdv, PDO::PARAM_INT);
+        $stmt->bindParam(':id_consult', $id_consult, PDO::PARAM_INT);
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {

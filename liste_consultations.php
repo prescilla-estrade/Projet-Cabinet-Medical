@@ -44,11 +44,11 @@ $sqlQuery = 'SELECT consultation.*, usagers.nom AS usager_nom, usagers.prenom AS
 $medecinFiltre = $_GET['selectMedecin'] ?? 'all';
 
 if ($medecinFiltre !== 'all') {
-    $sqlQuery .= ' AND consultation.id_medecin = :id_medecin ORDER BY date_consult DESC'; //ORDER BY date_heure_rdv
+    $sqlQuery .= ' AND consultation.id_medecin = :id_medecin ORDER BY date_consult, heure_consult DESC';
     $resultat = $linkpdo->prepare($sqlQuery);
     $resultat->bindParam(':id_medecin', $medecinFiltre, PDO::PARAM_INT);
 } else {
-    $sqlQuery .= ' ORDER BY date_consult DESC';  //ORDER BY date_heure_rdv
+    $sqlQuery .= ' ORDER BY date_consult, heure_consult DESC';
     $resultat = $linkpdo->query($sqlQuery);
 }
 
@@ -90,15 +90,15 @@ $res = $resultat->fetchAll();
                 </form>
             </td>
             <td>
-            <button onclick='confirmDelete(<?php echo $rdv['id_rdv']; ?>)' class='icon'><i id='supprimer' class='fas fa-trash-alt'></i> Supprimer</button>
+            <button onclick='confirmDelete(<?php echo $rdv['id_consult']; ?>)' class='icon'><i id='supprimer' class='fas fa-trash-alt'></i> Supprimer</button>
             </td>
 
         </tr>
         <script>
-            function confirmDelete(id_rdv) {
+            function confirmDelete(id_consult) {
                 var confirmation = confirm('Voulez-vous vraiment supprimer cette consultation ?');
                 if (confirmation) {
-                    window.location.href = 'supprimer_consultations.php?id_rdv=' + id_rdv;
+                    window.location.href = 'supprimer_consultations.php?id_consult=' + id_consult;
                 }
             }
         </script>
