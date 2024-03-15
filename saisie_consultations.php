@@ -1,6 +1,48 @@
 <?php
-require("verif_session.php");
+//require("verif_session.php");
+require("fonction_consultations.php");
+
+// Vérification de la soumission du formulaire
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vérification des champs requis
+    $errors = array();
+    if (empty($_POST["date_consult"])) {
+        $errors[] = "La date de consultation est requise.";
+    }
+    if (empty($_POST["heure_consult"])) {
+        $errors[] = "L'heure de consultation est requise.";
+    }
+    if (empty($_POST["duree_consult"])) {
+        $errors[] = "La durée de consultation est requise.";
+    }
+
+    // Si aucune erreur n'est détectée, procéder à l'insertion dans la base de données
+    if (empty($errors)) {
+        // Préparation des données pour l'insertion
+        $data = array(
+            'date_consult' => $_POST['date_consult'],
+            'heure_consult' => $_POST['heure_consult'],
+            'duree_consult' => $_POST['duree_consult']
+        );
+
+        // Appel de la fonction pour créer une consultation dans la base de données
+        $result = create_consultations($data);
+
+        if ($result) {
+            echo "<script>alert('Consultation ajoutée avec succès.');</script>";
+            // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions ici
+        } else {
+            echo "<script>alert('Erreur lors de l'ajout de la consultation. Veuillez réessayer.');</script>";
+        }
+    } else {
+        // Affichage des erreurs
+        foreach ($errors as $error) {
+            echo "<script>alert('$error');</script>";
+        }
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,10 +137,12 @@ require("verif_session.php");
 
 
             <br><br>
-            <label for="date_heure_rdv">Date/Heure du rendez-vous </label>
-            <input type="datetime-local" id="date_heure_rdv" name="date_heure_rdv"><br><br>
-            <label for="duree">Durée du rendez-vous (en heure)</label>
-            <select name="duree">
+            <label for="date_consult">Date du rendez-vous </label>
+            <input type="date-local" id="date_consult" name="date_consult"><br><br>
+            <label for="heure_consult">Heure du rendez-vous </label>
+            <input type="time-local" id="heure_consult" name="heure_consult"><br><br>
+            <label for="duree_consult">Durée du rendez-vous (en heure)</label>
+            <select name="duree_consult">
                 <option>Choisissez une option</option>
                 <option value="15min">15min</option>
                 <option value="30min">30min</option>

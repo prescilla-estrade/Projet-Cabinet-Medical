@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_usager = $_POST['id_usager'];
         $id_medecin = $_POST['id_medecin'];
 
-        $sqlQuery = 'SELECT * FROM Rdv WHERE id_usager = :id_usager AND id_medecin = :id_medecin';
+        $sqlQuery = 'SELECT * FROM Consultation WHERE id_usager = :id_usager AND id_medecin = :id_medecin';
         $resultat = $linkpdo->prepare($sqlQuery);
         $resultat->bindParam(':id_usager', $id_usager);
         $resultat->bindParam(':id_medecin', $id_medecin);
@@ -35,15 +35,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type='hidden' name='id_usager' value='{$consultation['id_usager']}'>
                         <input type='hidden' name='id_medecin' value='{$consultation['id_medecin']}'>
                         
-                        <label for='date_heure_rdv'>Date/Heure :</label>
-                        <input type='datetime-local' name='date_heure_rdv' value='{$consultation['date_heure_rdv']}' required><br><br>
+                        <label for='date_consult'>Date :</label>
+                        <input type='datetime-local' name='date_heure_rdv' value='{$consultation['date_consult']}' required><br><br>
+                        <label for='heure_consult'>Heure :</label>
+                        <input type='datetime-local' name='date_heure_rdv' value='{$consultation['heure_consult']}' required><br><br>
                         
-                        <label for='duree'>Durée (en heures) :</label>
-                        <select name='duree' required>
-                            <option value='15min' " . ($consultation['duree'] === '15min' ? 'selected' : '') . ">0:15</option>
-                            <option value='30min' " . ($consultation['duree'] === '30min' ? 'selected' : '') . ">0:30</option>
-                            <option value='45min' " . ($consultation['duree'] === '45min' ? 'selected' : '') . ">0:45</option>
-                            <option value='1h' " . ($consultation['duree'] === '1h' ? 'selected' : '') . ">1:00</option>
+                        <label for='duree_consult'>Durée (en heures) :</label>
+                        <select name='duree_consult' required>
+                            <option value='15min' " . ($consultation['duree_consult'] === '15min' ? 'selected' : '') . ">0:15</option>
+                            <option value='30min' " . ($consultation['duree_consult'] === '30min' ? 'selected' : '') . ">0:30</option>
+                            <option value='45min' " . ($consultation['duree_consult'] === '45min' ? 'selected' : '') . ">0:45</option>
+                            <option value='1h' " . ($consultation['duree_consult'] === '1h' ? 'selected' : '') . ">1:00</option>
                         </select><br><br>
                         
                         <input type='submit' name='modifier' value='Modifier'>
@@ -57,13 +59,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </html>";
 
             if (isset($_POST['modifier'])) {
-                $date_heure_rdv = $_POST['date_heure_rdv'];
-                $duree = $_POST['duree'];
+                $date_consult = $_POST['date_consult'];
+                $heure_consult = $_POST['heure_consult'];
+                $duree = $_POST['duree_consult'];
 
-                $sqlUpdate = 'UPDATE Rdv SET date_heure_rdv = :date_heure_rdv, duree = :duree WHERE id_usager = :id_usager AND id_medecin = :id_medecin';
+                $sqlUpdate = 'UPDATE Consultation SET date_consult = :date_consult, heure_consult = :heure_consult, duree_consult = :duree_consult WHERE id_usager = :id_usager AND id_medecin = :id_medecin';
                 $stmt = $linkpdo->prepare($sqlUpdate);
-                $stmt->bindParam(':date_heure_rdv', $date_heure_rdv);
-                $stmt->bindParam(':duree', $duree);
+                $stmt->bindParam(':date_consult', $date_consult);
+                $stmt->bindParam(':heure_consult', $heure_consult);
+                $stmt->bindParam(':duree_consult', $duree_consult);
                 $stmt->bindParam(':id_usager', $id_usager);
                 $stmt->bindParam(':id_medecin', $id_medecin);
                 $stmt->execute();
