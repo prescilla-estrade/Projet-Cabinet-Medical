@@ -3,10 +3,11 @@
 //require("verif_session.php");
 require("fonction_usagers.php");
 
+// Vérification de la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
     if (isset($_POST['id_usager'])) {
         $id_usager = $_POST['id_usager'];
-        
         $sqlSelect = 'SELECT * FROM Usagers WHERE id_usager = :id_usager';
         $stmtSelect = $linkpdo->prepare($sqlSelect);
         $stmtSelect->bindParam(':id_usager', $id_usager);
@@ -77,6 +78,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Aucun usager trouvé.";
         }
 
+        // Vérification des champs requis
+        $errors = array();
+        if (empty($_POST["nom"])) {
+            $errors[] = "Le nom est requis.";
+        }
+        if (empty($_POST["civilite"])) {
+            $errors[] = "La civilité est requise.";
+        }
+        if (empty($_POST["sexe"])) {
+            $errors[] = "Le sexe est requis.";
+        }
+        if (empty($_POST["civilite"])) {
+            $errors[] = "La civilite est requise.";
+        }
+        if (empty($_POST["adresse"])) {
+            $errors[] = "L'adresse est requise.";
+        }
+        if (empty($_POST["code_postal"])) {
+            $errors[] = "Le code postal est requis.";
+        }
+        if (empty($_POST["date_de_naiss"])) {
+            $errors[] = "La date de naissance est requise.";
+        }
+        if (empty($_POST["lieu_de_naiss"])) {
+            $errors[] = "Le lieu de naissance est requis.";
+        }
+        if (empty($_POST["num_securite_sociale"])) {
+            $errors[] = "Le numéro de securité sociale est requis.";
+        }
+        
+        // Si aucune erreur n'est détectée, procéder à la modification dans la base de données
+        if (empty($errors)) {
+            // Préparation des données pour l'insertion
+            $data = array(
+                'nom' => $_POST['nom'],
+                'prenom' => $_POST['prenom'],
+                'sexe' => $_POST['sexe'],
+                'civilite' => $_POST['civilite'],
+                'adresse' => $_POST['adresse'],
+                'code_postal' => $_POST['code_postal'],
+                'date_de_naiss' => $_POST['date_de_naiss'],
+                'lieu_de_naiss' => $_POST['lieu_de_naiss'],
+                'num_securite_sociale' => $_POST['num_securite_sociale']
+            );
+            
+            // Appel de la fonction pour modifier un usager dans la base de données
+            $result = update_usagers($id, $data);
+
+            if ($result) {
+                echo "<script>alert('Usager modifié avec succès.');</script>";
+                // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions ici
+            } else {
+                echo "<script>alert('Erreur lors de la modification de l'usager. Veuillez réessayer.');</script>";
+            }
+        } else {
+            // Affichage des erreurs
+            foreach ($errors as $error) {
+                echo "<script>alert('$error');</script>";
+            }
+        }
+
+        /*
         if (isset($_POST['modifier'])) {
             $nom = $_POST['nom'];
             $prenom = $_POST['prenom'];
@@ -108,9 +171,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         echo "Aucun usager sélectionné.";
-    }
+    }*/
 
-     
 }
 
 ?>
