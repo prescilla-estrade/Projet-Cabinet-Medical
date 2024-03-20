@@ -168,11 +168,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: liste_usagers.php");
             exit();
 
-        }
+        }*/
     } else {
         echo "Aucun usager sélectionné.";
-    }*/
-
     }
 }
 

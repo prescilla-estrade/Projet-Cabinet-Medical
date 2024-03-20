@@ -3,6 +3,7 @@
 //require("verif_session.php");
 require("fonction_consultations.php");
 
+// Vérification de la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['id_usager']) && isset($_POST['id_medecin'])) {
         $id_usager = $_POST['id_usager'];
@@ -57,6 +58,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </body>
             </html>";
 
+            // Vérification des champs requis
+            $errors = array();
+            if (empty($_POST["date_consult"])) {
+                $errors[] = "La date de consultation est requise.";
+            }
+            if (empty($_POST["heure_consult"])) {
+                $errors[] = "L'heure de consultation' est requise.";
+            }
+            if (empty($_POST["duree_consult"])) {
+                $errors[] = "La durée de consultation' est requise.";
+            }
+        
+            // Si aucune erreur n'est détectée, procéder à la modification dans la base de données
+            if (empty($errors)) {
+                // Préparation des données pour la modification
+                $data = array(
+                    'date_consult' => $_POST['date_consult'],
+                    'heure_consult' => $_POST['heure_consult'],
+                    'duree_consult' => $_POST['duree_consult']
+            );
+            
+            // Appel de la fonction pour modifier un usager dans la base de données
+            $result = update_consultations($id, $data);
+
+            if ($result) {
+                echo "<script>alert('Consultation modifiée avec succès.');</script>";
+                // Vous pouvez rediriger l'utilisateur ou effectuer d'autres actions ici
+            } else {
+                echo "<script>alert('Erreur lors de la modification de la consultation. Veuillez réessayer.');</script>";
+            }
+        } else {
+            // Affichage des erreurs
+            foreach ($errors as $error) {
+                echo "<script>alert('$error');</script>";
+            }
+        }
+            /*
             if (isset($_POST['modifier'])) {
                 $date_consult = $_POST['date_consult'];
                 $heure_consult = $_POST['heure_consult'];
@@ -77,10 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } else {
             echo "Aucune consultation trouvée.";
-        }
+        }*/
     } else {
         echo "Aucune consultation sélectionnée.";
     }
+    }
 }
-
 ?>

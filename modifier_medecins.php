@@ -113,11 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Médecin mis à jour avec succès !";
             header("Location: liste_medecins.php");
             exit();
-        }
+        }*/
     } else {
         echo "Aucun médecin sélectionné.";
-    }
-    */
     }
 }
 ?>
