@@ -1,8 +1,7 @@
 <?php
 
-require("verif_session.php");
-
-require("bd_connection.php");
+//require("verif_session.php");
+require("fonction_medecins.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['id_medecin'])) {
