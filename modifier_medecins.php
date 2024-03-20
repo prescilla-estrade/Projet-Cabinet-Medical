@@ -95,25 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "<script>alert('$error');</script>";
             }
         }
-
-        /*
-        if (isset($_POST['modifier'])) {
-            $civilite = $_POST['civilite'];
-            $nom = $_POST['nom'];
-            $prenom = $_POST['prenom'];
-
-            $sqlUpdate = 'UPDATE medecin SET civilite = :civilite, nom = :nom, prenom = :prenom WHERE id_medecin = :id';
-            $stmt = $linkpdo->prepare($sqlUpdate);
-            $stmt->bindParam(':civilite', $civilite);
-            $stmt->bindParam(':nom', $nom);
-            $stmt->bindParam(':prenom', $prenom);
-            $stmt->bindParam(':id', $id_medecin);
-            $stmt->execute();
-
-            echo "Médecin mis à jour avec succès !";
-            header("Location: liste_medecins.php");
-            exit();
-        }*/
     } else {
         echo "Aucun médecin sélectionné.";
     }

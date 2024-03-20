@@ -94,31 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "<script>alert('$error');</script>";
             }
         }
-            /*
-            if (isset($_POST['modifier'])) {
-                $date_consult = $_POST['date_consult'];
-                $heure_consult = $_POST['heure_consult'];
-                $duree = $_POST['duree_consult'];
-
-                $sqlUpdate = 'UPDATE Consultation SET date_consult = :date_consult, heure_consult = :heure_consult, duree_consult = :duree_consult WHERE id_usager = :id_usager AND id_medecin = :id_medecin';
-                $stmt = $linkpdo->prepare($sqlUpdate);
-                $stmt->bindParam(':date_consult', $date_consult);
-                $stmt->bindParam(':heure_consult', $heure_consult);
-                $stmt->bindParam(':duree_consult', $duree_consult);
-                $stmt->bindParam(':id_usager', $id_usager);
-                $stmt->bindParam(':id_medecin', $id_medecin);
-                $stmt->execute();
-
-                echo "Consultation mise à jour avec succès !";
-                header('Location: liste_consultations.php');
-                exit();
-            }
-        } else {
-            echo "Aucune consultation trouvée.";
-        }*/
     } else {
         echo "Aucune consultation sélectionnée.";
-    }
     }
 }
 ?>
