@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Si aucune erreur n'est détectée, procéder à la modification dans la base de données
         if (empty($errors)) {
-            // Préparation des données pour l'insertion
+            // Préparation des données pour la modification
             $data = array(
                 'nom' => $_POST['nom'],
                 'prenom' => $_POST['prenom'],
@@ -173,6 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Aucun usager sélectionné.";
     }*/
 
+    }
 }
 
 ?>

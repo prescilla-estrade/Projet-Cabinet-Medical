@@ -3,6 +3,7 @@
 //require("verif_session.php");
 require("fonction_medecins.php");
 
+// Vérification de la soumission du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['id_medecin'])) {
         $id_medecin = $_POST['id_medecin'];
@@ -58,6 +59,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Aucun médecin trouvé.";
         }
 
+        // Vérification des champs requis
+        $errors = array();
+        if (empty($_POST["civilite"])) {
+            $errors[] = "La civilité est requise.";
+        }
+        if (empty($_POST["nom"])) {
+            $errors[] = "Le nom est requis.";
+        }
+        if (empty($_POST["prenom"])) {
+            $errors[] = "Le prenom est requis.";
+        }
+
+        // Si aucune erreur n'est détectée, procéder à la modification dans la base de données
+        if (empty($errors)) {
+            // Préparation des données pour la modification
+            $data = array(
+                'civilite' => $_POST['civilite'],
+                'nom' => $_POST['nom'],
+                'prenom' => $_POST['prenom']
+            );
+            
+            // Appel de la fonction pour modifier un médecin dans la base de données
+            $result = update_medecins($id, $data);
+
+            if ($result) {
+                echo "<script>alert('Médecin modifié avec succès.');</script>";
+                // Vous pouvez rediriger le médecin ou effectuer d'autres actions ici
+            } else {
+                echo "<script>alert('Erreur lors de la modification du médecin. Veuillez réessayer.');</script>";
+            }
+        } else {
+            // Affichage des erreurs
+            foreach ($errors as $error) {
+                echo "<script>alert('$error');</script>";
+            }
+        }
+
+        /*
         if (isset($_POST['modifier'])) {
             $civilite = $_POST['civilite'];
             $nom = $_POST['nom'];
@@ -78,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "Aucun médecin sélectionné.";
     }
+    */
+    }
 }
-
 ?>
