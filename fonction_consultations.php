@@ -18,15 +18,15 @@ function deliver_response($status_code, $status_message, $data=null){
 }
 
 function get_consultations($linkpdo) {
-    $res = $linkpdo->query('SELECT * FROM consultations');
+    $res = $linkpdo->query('SELECT * FROM consultation');
     $resultat = $res->fetchAll(PDO::FETCH_ASSOC);
     return $resultat;
 }
 
 function get_consultations_id($id, $linkpdo) {
-    $sql = "SELECT * FROM consultations WHERE id_consultation = :id_consultation";
+    $sql = "SELECT * FROM consultation WHERE id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sql);
-    $stmt->bindParam(':id_consultation', $id);
+    $stmt->bindParam(':id_consult', $id);
     $stmt->execute();
     $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
     return $resultat;
