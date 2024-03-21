@@ -1,17 +1,32 @@
 <?php
 
-//require("verif_session.php");
-require("fonction_consultations.php");
+require('connectionBD_App.php'); // Assurez-vous d'inclure le fichier de connexion à la base de données
 
-//récupération des médecins depuis la base de données
-$res = get_consultations();
+$baseUrl = "http://localhost/Cabinet_Medical_API/Projet-Cabinet-Medical/index_consultations.php";
+$res = file_get_contents($baseUrl);
+
+$res = json_decode($res, true);
+
 ?>
 
-<title>Liste des consultations</title>
-<link rel='stylesheet' type='text/css' href='menu.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
-<link rel="stylesheet" type="text/css" href="styles.css">
-<script src="retour.js"></script>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Liste des consultations</title>
+    <link rel='stylesheet' type='text/css' href='menu.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="retour.js"></script>
+
+    <style>
+        table, td, th {
+            width: 80%;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
 
 <nav>
     <ul class='menu-list'>
@@ -56,56 +71,47 @@ $resultat->execute();
 $res = $resultat->fetchAll();
 ?>
 
-<style>
-    table, td, th {
-        width: 80%;
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-</style>
 <div class='table-container'>
-<table>
-    <tr>
-        <th>Usager</th>
-        <th>Médecin</th>
-        <th>Date</th>
-        <th>Heure</th>
-        <th>Durée (en heure)</th>
-        <th>Modifier</th>
-        <th>Supprimer</th>
-    </tr>
-
-    <?php foreach ($res as $rdv) { ?>
+    <table>
         <tr>
-            <td><?php echo $rdv['usager_nom'] . ' ' . $rdv['usager_prenom']; ?></td>
-            <td><?php echo $rdv['medecin_nom'] . ' ' . $rdv['medecin_prenom']; ?></td>
-            <td><?php echo $rdv['date_consult']; ?></td>
-            <td><?php echo $rdv['heure_consult']; ?></td>
-            <td><?php echo $rdv['duree_consult']; ?></td>
-            <td>
-                <form action='modifier_consultations.php' method='post'>
-                    <input type='hidden' name='id_usager' value='<?php echo $rdv['id_usager']; ?>'>
-                    <input type='hidden' name='id_medecin' value='<?php echo $rdv['id_medecin']; ?>'>
-                    <button type='submit' class='icon'><i class='fas fa-edit'></i> Modifier</button>
-                </form>
-            </td>
-            <td>
-            <button onclick='confirmDelete(<?php echo $rdv['id_consult']; ?>)' class='icon'><i id='supprimer' class='fas fa-trash-alt'></i> Supprimer</button>
-            </td>
-
+            <th>Usager</th>
+            <th>Médecin</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Durée (en heure)</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
         </tr>
-        <script>
-            function confirmDelete(id_consult) {
-                var confirmation = confirm('Voulez-vous vraiment supprimer cette consultation ?');
-                if (confirmation) {
-                    window.location.href = 'supprimer_consultations.php?id_consult=' + id_consult;
-                }
-            }
-        </script>
 
-    <?php } ?>
-</table>
+        <?php foreach ($res as $rdv) { ?>
+            <tr>
+                <td><?php echo $rdv['usager_nom'] . ' ' . $rdv['usager_prenom']; ?></td>
+                <td><?php echo $rdv['medecin_nom'] . ' ' . $rdv['medecin_prenom']; ?></td>
+                <td><?php echo $rdv['date_consult']; ?></td>
+                <td><?php echo $rdv['heure_consult']; ?></td>
+                <td><?php echo $rdv['duree_consult']; ?></td>
+                <td>
+                    <form action='modifier_consultations.php' method='post'>
+                        <input type='hidden' name='id_usager' value='<?php echo $rdv['id_usager']; ?>'>
+                        <input type='hidden' name='id_medecin' value='<?php echo $rdv['id_medecin']; ?>'>
+                        <button type='submit' class='icon'><i class='fas fa-edit'></i> Modifier</button>
+                    </form>
+                </td>
+                <td>
+                    <button onclick='confirmDelete(<?php echo $rdv['id_consult']; ?>)' class='icon'><i id='supprimer' class='fas fa-trash-alt'></i> Supprimer</button>
+                </td>
+            </tr>
+            <script>
+                function confirmDelete(id_consult) {
+                    var confirmation = confirm('Voulez-vous vraiment supprimer cette consultation ?');
+                    if (confirmation) {
+                        window.location.href = 'supprimer_consultations.php?id_consult=' + id_consult;
+                    }
+                }
+            </script>
+        <?php } ?>
+    </table>
 </div>
 
 <br>
-<button id='retour' onclick='retour()'><i class='fas fa-arrow-left'></i> Retour</button>
+<button id='retour' onclick='retour()'><i class='fas fa-arrow-left'></i> Retour</

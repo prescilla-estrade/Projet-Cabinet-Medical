@@ -17,24 +17,22 @@ function deliver_response($status_code, $status_message, $data=null){
     echo $json_response;
 }
 
-function get_consultations() {
-    require('connectionBD_App.php');
-    $res = $linkpdo->query('SELECT * FROM consultation');
-    $resultat = $res->fetchAll();
+function get_consultations($linkpdo) {
+    $res = $linkpdo->query('SELECT * FROM consultations');
+    $resultat = $res->fetchAll(PDO::FETCH_ASSOC);
     return $resultat;
 }
 
-function get_consultations_id($id) {
-    require('connectionBD_App.php');
-    $sql = "SELECT * FROM consultation WHERE id_consult = :id_consult";
+function get_consultations_id($id, $linkpdo) {
+    $sql = "SELECT * FROM consultations WHERE id_consultation = :id_consultation";
     $stmt = $linkpdo->prepare($sql);
-    $stmt->bindParam(':id_consult', $id);
+    $stmt->bindParam(':id_consultation', $id);
     $stmt->execute();
     $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
     return $resultat;
 }
 
-function create_consultations($linkpdo, $data){
+function create_consultations($data){
     require('connectionBD_App.php');
     $sqlCreate = "INSERT INTO consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult) VALUES (:id_usager, :id_medecin, :date_consult, :heure_consult, :duree_consult)";
     $stmt = $linkpdo->prepare($sqlCreate);
@@ -43,7 +41,7 @@ function create_consultations($linkpdo, $data){
     $stmt->bindParam(':date_consult', $data['date_consult']);
     $stmt->bindParam(':heure_consult', $data['heure_consult']);
     $stmt->bindParam(':duree_consult', $data['duree_consult']);
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 function update_consultations($id, $data) {
