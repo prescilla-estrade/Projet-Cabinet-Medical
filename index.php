@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require("bd_connection.php");
+require("connectionBD_App.php");
 
 // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
 if ($stmt = $linkpdo->prepare('SELECT id_auth, mdp FROM Auth WHERE username = :username')) {
