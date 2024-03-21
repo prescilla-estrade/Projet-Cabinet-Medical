@@ -17,10 +17,10 @@ function deliver_response($status_code, $status_message, $data=null){
     echo $json_response;
 }
 
-function get_medecins(){
+function get_medecins() {
     require('connectionBD_App.php');
     $res = $linkpdo->query('SELECT * FROM medecin');
-    $resultat = $res->fetchAll();
+    $resultat = $res->fetchAll(PDO::FETCH_ASSOC); // Utilisation de PDO::FETCH_ASSOC pour récupérer un tableau associatif
     return $resultat;
 }
 
@@ -30,9 +30,10 @@ function get_medecins_id($id) {
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':id_medecin', $id);
     $stmt->execute();
-    $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+    $resultat = $stmt->fetch(PDO::FETCH_ASSOC); // Utilisation de PDO::FETCH_ASSOC pour récupérer un tableau associatif
     return $resultat;
 }
+
 
 function create_medecins($data){
     require('connectionBD_App.php');

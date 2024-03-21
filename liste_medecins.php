@@ -1,10 +1,10 @@
 <?php
 
 //require("verif_session.php");
-require("fonction_medecins.php");
+$baseUrl = "http://localhost/Cabinet_Medical_API/Projet-Cabinet-Medical/index_medecins.php";
+$res = file_get_contents($baseUrl);
 
-//récupération des médecins depuis la base de données
-$res = get_medecins();
+$res = json_decode($res, true);
 
 echo "
 <!DOCTYPE HTML>
@@ -45,7 +45,7 @@ echo "
         </tr>
     </body>";
 
-foreach ($res as $medecin) {
+foreach ($res['data'] as $medecin) {
     echo "
     <tr>
         <td>{$medecin['civilite']}</td>

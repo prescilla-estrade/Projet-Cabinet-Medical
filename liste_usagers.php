@@ -1,7 +1,5 @@
 <?php
 //require("verif_session.php");
-//require("fonction_usagers.php");
-//require("index_usagers.php");
 
 $baseUrl = "http://localhost/Cabinet_Medical_API/Projet-Cabinet-Medical/index_usagers.php";
 $res = file_get_contents($baseUrl);
