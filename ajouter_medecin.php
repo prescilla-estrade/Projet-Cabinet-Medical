@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <legend> <h1>Formulaire d'ajout d'un médecin</h1> </legend>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <br> Civilité 
-                    <select name="civilite">
+                    <select name="civilite" required>
                         <option>Choisissez une option</option>
                         <option>M</option>
                         <option>Mme</option>

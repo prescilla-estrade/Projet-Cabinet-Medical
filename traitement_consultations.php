@@ -1,5 +1,6 @@
 <?php
-require("verif_session.php");
+//require("verif_session.php");
+require("fonction_consultations.php");
 
 $id_usager = $_POST['id_usager'];
 $id_medecin = $_POST['id_medecin'];
