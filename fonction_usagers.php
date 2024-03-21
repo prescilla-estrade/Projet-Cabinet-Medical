@@ -1,25 +1,22 @@
 <?php
 
 function deliver_response($status_code, $status_message, $data=null){
-    /// Paramétrage de l'entête HTTP
-    http_response_code($status_code); //Utilise un message standardisé en fonction du code HTTP
-    header('Access-Control-Allow-Origin: *'); //Permet de spécifier les domaines qui peuvent accéder à la ressource
-    //header("HTTP/1.1 $status_code $status_message"); //Permet de personnaliser le message associé au code HTTP
-    header("Content-Type:application/json; charset=utf-8");//Indique a client le format de la réponse
+    http_response_code($status_code);
+    header('Access-Control-Allow-Origin: *');
+    header("Content-Type:application/json; charset=utf-8");
     $response['status_code'] = $status_code;
     $response['status_message'] = $status_message;
     $response['data'] = $data;
-    /// Mapping de la réponse au format JSON
+    
     $json_response = json_encode($response);
-    if($json_response===false)
-     die('json encode ERROR : '.json_last_error_msg());
-    /// Affichage de la réponse (Retourné au client)
-    echo $json_response;
+    echo $json_response; // Affiche la réponse
+    return $json_response; // Renvoie la réponse
 }
+
 function get_usagers() {
     require('connectionBD_App.php');
     $res = $linkpdo->query('SELECT * FROM usagers');
-    $resultat = $res->fetchAll();
+    $resultat = $res->fetchAll(PDO::FETCH_ASSOC); // Utilisation de PDO::FETCH_ASSOC pour récupérer un tableau associatif
     return $resultat;
 }
 
@@ -29,7 +26,7 @@ function get_usagers_id($id) {
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':id_usager', $id);
     $stmt->execute();
-    $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+    $resultat = $stmt->fetch(PDO::FETCH_ASSOC); // Utilisation de PDO::FETCH_ASSOC pour récupérer un tableau associatif
     return $resultat;
 }
 

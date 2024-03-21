@@ -1,9 +1,12 @@
 <?php
 //require("verif_session.php");
-require("fonction_usagers.php");
+//require("fonction_usagers.php");
+//require("index_usagers.php");
 
-// Récupération des usagers depuis la base de données
-$res = get_usagers();
+$baseUrl = "http://localhost/Cabinet_Medical_API/Projet-Cabinet-Medical/index_usagers.php";
+$res = file_get_contents($baseUrl);
+
+$res = json_decode($res, true);
 
 echo "
 <!DOCTYPE HTML>
@@ -50,7 +53,7 @@ echo "
             </tr>";
 
 // Parcours des résultats et affichage dans le tableau
-foreach ($res as $usager) {
+foreach ($res['data'] as $usager) {
     echo "
     <tr>
         <td>{$usager['civilite']}</td>
