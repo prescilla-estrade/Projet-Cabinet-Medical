@@ -1,14 +1,16 @@
 <?php
-require("verif_session.php");
+#require("verif_session.php");
+$duree_json = file_get_contents("http://localhost/Cabinet_Medical_API/Projet-Cabinet-Medical/index_stat_consultations.php");
+$duree_data = json_decode($duree_json, true);
 
-require("bd_connection.php");
+// Vérifier si les données sont définies avant d'y accéder
+if (isset($duree_data['data'])) {
+  $durees = $duree_data['data'];
+} else {
+  // Si les données ne sont pas définies, initialiser le tableau vide
+  $durees = [];
+}
 
-$query = "SELECT CONCAT(Medecin.nom, ' ', Medecin.prenom) AS medecin, SEC_TO_TIME(SUM(TIME_TO_SEC(Rdv.duree))) AS duree_totale 
-          FROM Consultation, Medecin
-          WHERE Consultation.id_medecin = Medecin.id_medecin
-          GROUP BY Consultation.id_medecin";
-$rdvsResult = $linkpdo->query($query);
-$durees = $rdvsResult->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>

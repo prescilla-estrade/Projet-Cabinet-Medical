@@ -19,7 +19,7 @@ function deliver_response($status_code, $status_message, $data=null){
 
 function get_repartition_usagers() {
     require('connectionBD_App.php');
-    $query = "SELECT civilite, date_de_naiss FROM Usagers";
+    $query = "SELECT sexe, date_de_naiss FROM Usagers";
     $usagersResult = $linkpdo->query($query);
     $usagers = $usagersResult->fetchAll(PDO::FETCH_ASSOC);
 
@@ -36,19 +36,19 @@ function get_repartition_usagers() {
         $age = $dateNaissance->diff($aujourdHui)->y;
 
         if ($age < 25) {
-            if ($usager['civilite'] === 'M') {
+            if ($usager['sexe'] === 'H') {
                 $moins25Hommes++;
             } else {
                 $moins25Femmes++;
             }
         } elseif ($age >= 25 && $age <= 50) {
-            if ($usager['civilite'] === 'M') {
+            if ($usager['sexe'] === 'H') {
                 $entre25et50Hommes++;
             } else {
                 $entre25et50Femmes++;
             }
         } else {
-            if ($usager['civilite'] === 'M') {
+            if ($usager['sexe'] === 'H') {
                 $plus50Hommes++;
             } else {
                 $plus50Femmes++;

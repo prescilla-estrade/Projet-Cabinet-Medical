@@ -1,44 +1,18 @@
 <?php
 
-require("verif_session.php");
-require("bd_connection.php");
+$repartition_usagers_json = file_get_contents("http://localhost/Cabinet_Medical_API/Projet-Cabinet-Medical/index_stat_usagers.php");
+$repartition_usagers_data = json_decode($repartition_usagers_json, true);
 
-$query = "SELECT civilite, date_de_naiss FROM Usagers";
-$usagersResult = $linkpdo->query($query);
-$usagers = $usagersResult->fetchAll(PDO::FETCH_ASSOC);
+// Afficher les statistiques de répartition des usagers
+$repartition_usagers = $repartition_usagers_data['data'];
 
-$moins25Hommes = 0;
-$moins25Femmes = 0;
-$entre25et50Hommes = 0;
-$entre25et50Femmes = 0;
-$plus50Hommes = 0;
-$plus50Femmes = 0;
+$moins25Hommes = $repartition_usagers['moins25Hommes'];
+$moins25Femmes = $repartition_usagers['moins25Femmes'];
+$entre25et50Hommes = $repartition_usagers['entre25et50Hommes'];
+$entre25et50Femmes = $repartition_usagers['entre25et50Femmes'];
+$plus50Hommes = $repartition_usagers['plus50Hommes'];
+$plus50Femmes = $repartition_usagers['plus50Femmes'];
 
-foreach ($usagers as $usager) {
-    $dateNaissance = new DateTime($usager['date_de_naiss']);
-    $aujourdHui = new DateTime();
-    $age = $dateNaissance->diff($aujourdHui)->y;
-
-    if ($age < 25) {
-        if ($usager['civilite'] === 'M') {
-            $moins25Hommes++;
-        } else {
-            $moins25Femmes++;
-        }
-    } elseif ($age >= 25 && $age <= 50) {
-        if ($usager['civilite'] === 'M') {
-            $entre25et50Hommes++;
-        } else {
-            $entre25et50Femmes++;
-        }
-    } else {
-        if ($usager['civilite'] === 'M') {
-            $plus50Hommes++;
-        } else {
-            $plus50Femmes++;
-        }
-    }
-}
 ?>
 
 <!DOCTYPE html>
