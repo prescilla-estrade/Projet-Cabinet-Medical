@@ -57,6 +57,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <br>
        <legend> <h1>Formulaire de saisie d'une consultation</h1></legend>
         <form action="traitement_consultations.php" method="post">
+
+        <label for="date_consult">Date de la consultation </label>
+        <input type="date" id="date_consult" name="date_consult"><br><br>
+        <label for="heure_consult">Heure de la consultation </label>
+        <input type="time" id="heure_consult" name="heure_consult"><br><br>
+        <label for="duree_consult">Durée de la consultation (en heure)</label>
+        <select name="duree_consult">
+            <option>Choisissez une option</option>
+            <option value="15min">15min</option>
+            <option value="30min">30min</option>
+            <option value="45min">45min</option>
+            <option value="1h">1h</option>
+        </select><br><br>
+
         <label for="usager">Sélectionnez l'usager </label>
         <select name="id_usager" id="usager">
             <?php
@@ -133,23 +147,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             ?>
         </select>
-
-
-
-            <br><br>
-            <label for="date_consult">Date du rendez-vous </label>
-            <input type="date-local" id="date_consult" name="date_consult"><br><br>
-            <label for="heure_consult">Heure du rendez-vous </label>
-            <input type="time-local" id="heure_consult" name="heure_consult"><br><br>
-            <label for="duree_consult">Durée du rendez-vous (en heure)</label>
-            <select name="duree_consult">
-                <option>Choisissez une option</option>
-                <option value="15min">15min</option>
-                <option value="30min">30min</option>
-                <option value="45min">45min</option>
-                <option value="1h">1h</option>
-            </select><br><br>
-            <input type="submit" value="Valider">
+        <br><br>
+        <input type="submit" value="Valider">
         </form>
     </fieldset>
     <br>
