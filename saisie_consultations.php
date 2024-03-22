@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <fieldset>
         <br>
         <legend> <h1>Formulaire de saisie d'une consultation</h1></legend>
-        <form action="traitement_consultations.php" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
             <label for="date_consult">Date de la consultation </label>
             <input type="date" id="date_consult" name="date_consult"><br><br>

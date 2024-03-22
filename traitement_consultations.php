@@ -17,7 +17,7 @@ try {
     $conn = new PDO("mysql:host=$server;dbname=$bd", $login, $mdp);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $insert_query = "INSERT INTO Consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult) VALUES (:id_usager, :id_medecin, :date_consult, :heure_consult, :duree)"; 
+    $insert_query = "INSERT INTO Consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult) VALUES (:id_usager, :id_medecin, :date_consult, :heure_consult, :duree_consult)"; 
     $stmt = $conn->prepare($insert_query);
     $stmt->bindParam(':id_usager', $id_usager);
     $stmt->bindParam(':id_medecin', $id_medecin);
