@@ -5,7 +5,7 @@ function deliver_response($status_code, $status_message, $data=null){
     http_response_code($status_code); //Utilise un message standardisé en fonction du code HTTP
     header('Access-Control-Allow-Origin: *'); //Permet de spécifier les domaines qui peuvent accéder à la ressource
     //header("HTTP/1.1 $status_code $status_message"); //Permet de personnaliser le message associé au code HTTP
-    header("Content-Type:application/json; charset=utf-8");//Indique a client le format de la réponse
+    header("Content-Type:application/json; charset=utf-8");//Indique au client le format de la réponse
     $response['status_code'] = $status_code;
     $response['status_message'] = $status_message;
     $response['data'] = $data;

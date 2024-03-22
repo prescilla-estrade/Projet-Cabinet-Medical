@@ -36,9 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type='hidden' name='id_medecin' value='{$consultation['id_medecin']}'>
                         
                         <label for='date_consult'>Date :</label>
-                        <input type='datetime-local' name='date_consult' value='{$consultation['date_consult']}' required><br><br>
+                        <input type='date' name='date_consult' value='{$consultation['date_consult']}' required><br><br>
                         <label for='heure_consult'>Heure :</label>
-                        <input type='datetime-local' name='heure_consult' value='{$consultation['heure_consult']}' required><br><br>
+                        <input type='time' name='heure_consult' value='{$consultation['heure_consult']}' required><br><br>
                         
                         <label for='duree_consult'>Durée (en heures) :</label>
                         <select name='duree_consult' required>

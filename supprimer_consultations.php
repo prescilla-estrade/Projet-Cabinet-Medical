@@ -1,5 +1,6 @@
 <?php
-require("bd_connection.php");
+//require("verif_session.php");
+require("fonction_consultations.php");
 
 if (isset($_GET['id_consult'])) {
     try {

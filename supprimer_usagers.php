@@ -1,5 +1,7 @@
 <?php
-require("bd_connection.php");
+//require("verif_session.php");
+require("fonction_usagers.php");
+
 if (isset($_GET['id_usager'])) {
     try {
         $id_usager = $_GET['id_usager'];
