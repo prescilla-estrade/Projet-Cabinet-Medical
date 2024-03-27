@@ -1,24 +1,24 @@
 Options +FollowSymlinks
 RewriteEngine On
-RewriteBase /{{REPERTOIRE_PROJET}}/
+RewriteBase /{{Projet-Cabinet-Medical}}/
 
 
 # AUTHENTIFICATION
-RewriteRule ^auth$ {{REPERTOIRE_AUTH}}/{{FICHIER_ENDPOINT_AUTH}}.php
+RewriteRule ^auth$ {{Auth}}/{{auth_api}}.php
 
 
 # MEDECINS
-RewriteRule ^medecins$ {{REPERTOIRE_APP}}/{{REPERTOIRE_MEDECINS}}/{{FICHIER_ENDPOINT_MEDECINS}}.php
-RewriteRule ^medecins/([0-9]+)$ {{REPERTOIRE_APP}}/{{REPERTOIRE_MEDECINS}}/{{FICHIER_ENDPOINT_MEDECINS}}.php?id=$1
+RewriteRule ^medecins$ {{App}}/{{Medecins}}/{{index_medecins}}.php
+RewriteRule ^medecins/([0-9]+)$ {{App}}/{{Medecins}}/{{index_medecins}}.php?id=$1
 
 # USAGERS
-RewriteRule ^usagers$ {{REPERTOIRE_APP}}/{{REPERTOIRE_USAGERS}}/{{FICHIER_ENDPOINT_USAGERS}}.php
-RewriteRule ^usagers/([0-9]+)$ {{REPERTOIRE_APP}}/{{REPERTOIRE_USAGERS}}/{{FICHIER_ENDPOINT_USAGERS}}.php?id=$1
+RewriteRule ^usagers$ {{App}}/{{Usagers}}/{{index_usagers}}.php
+RewriteRule ^usagers/([0-9]+)$ {{App}}/{{Usagers}}/{{index_usagers}}.php?id=$1
 
 # CONSULTATIONS
-RewriteRule ^consultations$ {{REPERTOIRE_APP}}/{{REPERTOIRE_CONSULTATIONS}}/{{FICHIER_ENDPOINT_CONSULTATIONS}}.php
-RewriteRule ^consultations/([0-9]+)$ {{REPERTOIRE_APP}}/{{REPERTOIRE_CONSULTATIONS}}/{{FICHIER_ENDPOINT_CONSULTATIONS}}.php?id=$1
+RewriteRule ^consultations$ {{App}}/{{Consultations}}/{{index_conultations}}.php
+RewriteRule ^consultations/([0-9]+)$ {{App}}/{{Consultations}}/{{index_conultations}}.php?id=$1
 
 # STATISTIQUES
-RewriteRule ^stats/medecins$ {{REPERTOIRE_APP}}/{{REPERTOIRE_STATS}}/{{FICHIER_ENDPOINT_STATS}}.php?stat=medecins
-RewriteRule ^stats/usagers$ {{REPERTOIRE_APP}}/{{REPERTOIRE_STATS}}/{{FICHIER_ENDPOINT_STATS}}.php?stat=usagers
+RewriteRule ^stats/medecins$ {{App}}/{{Stats}}/{{index_stat_consultations}}.php?stat=medecins
+RewriteRule ^stats/usagers$ {{App}}/{{Stats}}/{{index_stat_usagers}}.php?stat=usagers
