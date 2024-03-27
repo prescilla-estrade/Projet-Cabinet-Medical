@@ -1,6 +1,9 @@
 <?php
 //require("verif_session.php");
-require("fonction_usagers.php");
+$baseUrl = "http://localhost/Cabinet_Medical_API/Projet-Cabinet-Medical/index_usagers.php";
+$res = file_get_contents($baseUrl);
+$res = json_decode($res, true);
+
 
 // Vérification de la soumission du formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
