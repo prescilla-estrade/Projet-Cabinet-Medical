@@ -18,7 +18,7 @@ function deliver_response($status_code, $status_message, $data=null){
 }
 
 function get_repartition_usagers() {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $query = "SELECT sexe, date_de_naiss FROM Usagers";
     $usagersResult = $linkpdo->query($query);
     $usagers = $usagersResult->fetchAll(PDO::FETCH_ASSOC);
@@ -66,7 +66,7 @@ function get_repartition_usagers() {
 }
 
 function get_duree_consultation() {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $query = "SELECT CONCAT(Medecin.nom, ' ', Medecin.prenom) AS medecin, SEC_TO_TIME(SUM(TIME_TO_SEC(Consultation.duree_consult))) AS duree_totale 
     FROM Consultation, Medecin
     WHERE Consultation.id_medecin = Medecin.id_medecin

@@ -14,14 +14,14 @@ function deliver_response($status_code, $status_message, $data=null){
 }
 
 function get_usagers() {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $res = $linkpdo->query('SELECT * FROM usagers');
     $resultat = $res->fetchAll(PDO::FETCH_ASSOC); // Utilisation de PDO::FETCH_ASSOC pour récupérer un tableau associatif
     return $resultat;
 }
 
 function get_usagers_id($id) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $sql = "SELECT * FROM usagers WHERE id_usager = :id_usager";
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':id_usager', $id);
@@ -31,7 +31,7 @@ function get_usagers_id($id) {
 }
 
 function create_usagers($data) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $sql = "INSERT INTO usagers (civilite, nom, prenom, sexe, adresse, code_postal, date_de_naiss, lieu_de_naiss, num_securite_sociale) 
     VALUES (:civilite, :nom, :prenom, :sexe, :adresse, :code_postal, :date_de_naiss, :lieu_de_naiss, :num_securite_sociale)";
     $stmt = $linkpdo->prepare($sql);
@@ -48,7 +48,7 @@ function create_usagers($data) {
 }
 
 function update_usagers($id, $data) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $fields = array_keys($data);
     $placeholders = array_map(function($field) {
         return "$field = :$field";
@@ -64,7 +64,7 @@ function update_usagers($id, $data) {
 }
 
 function update_usagers_partially($id, $data) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $fields = array_keys($data);
     $placeholders = array_map(function($field) {
         return "$field = :$field";
@@ -80,7 +80,7 @@ function update_usagers_partially($id, $data) {
 }
 
 function delete_usagers($id) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $sql = "DELETE FROM usagers WHERE id_usager = :id_usager";
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':id_usager', $id);

@@ -18,14 +18,14 @@ function deliver_response($status_code, $status_message, $data=null){
 }
 
 function get_medecins() {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $res = $linkpdo->query('SELECT * FROM medecin');
     $resultat = $res->fetchAll(PDO::FETCH_ASSOC); // Utilisation de PDO::FETCH_ASSOC pour récupérer un tableau associatif
     return $resultat;
 }
 
 function get_medecins_id($id) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $sql = "SELECT * FROM medecin WHERE id_medecin = :id_medecin";
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':id_medecin', $id);
@@ -36,7 +36,7 @@ function get_medecins_id($id) {
 
 
 function create_medecins($data){
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $sqlCreate = "INSERT INTO medecin(civilite, nom, prenom) VALUES(:civilite, :nom, :prenom)";
     $stmt = $linkpdo->prepare($sqlCreate);
     $stmt->bindParam(':civilite', $data['civilite']);
@@ -46,7 +46,7 @@ function create_medecins($data){
 }
 
 function update_medecins($id_medecin, $data) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $fields = array_keys($data);
     $placeholders = array_map(function($field) {
         return "$field = :$field";
@@ -62,7 +62,7 @@ function update_medecins($id_medecin, $data) {
 }
 
 function update_medecins_partially($id_medecin, $data) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $fields = array_keys($data);
     $placeholders = array_map(function($field) {
         return "$field = :$field";
@@ -78,7 +78,7 @@ function update_medecins_partially($id_medecin, $data) {
 }
 
 function delete_medecins($id){
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $sqlDelete = "DELETE FROM Medecin WHERE id_medecin = :id_medecin";
     $stmtMedecin = $linkpdo->prepare($sqlDelete);
     $stmtMedecin->bindParam(':id_medecin', $id_medecin);

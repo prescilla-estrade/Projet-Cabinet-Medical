@@ -33,7 +33,7 @@ function get_consultations_id($id, $linkpdo) {
 }
 
 function create_consultations($data){
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $sqlCreate = "INSERT INTO consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult) VALUES (:id_usager, :id_medecin, :date_consult, :heure_consult, :duree_consult)";
     $stmt = $linkpdo->prepare($sqlCreate);
     $stmt->bindParam(':id_usager', $data['id_usager']);
@@ -45,7 +45,7 @@ function create_consultations($data){
 }
 
 function update_consultations($id, $data) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $fields = array_keys($data);
     $placeholders = array_map(function($field) {
         return "$field = :$field";
@@ -61,7 +61,7 @@ function update_consultations($id, $data) {
 }
 
 function update_consultations_partially($id, $data) {
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $fields = array_keys($data);
     $placeholders = array_map(function($field) {
         return "$field = :$field";
@@ -77,7 +77,7 @@ function update_consultations_partially($id, $data) {
 }
 
 function delete_consultations($id){
-    require('connectionBD_App.php');
+    require('../connectionBD_App.php');
     $sqlDelete = "DELETE FROM consultation WHERE id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sqlDelete);
     $stmt->bindParam(':id_consult', $id_consult);
