@@ -12,8 +12,8 @@ RewriteRule ^App/usagers$ App/Usagers/index_usagers.php
 RewriteRule ^App/usagers/([0-9]+)$ App/Usagers/index_usagers.php?id=$1
 
 # CONSULTATIONS
-RewriteRule ^App/consultations$ App/Consultations/index_conultations.php
-RewriteRule ^App/consultations/([0-9]+)$ App/Consultations/index_conultations.php?id=$1
+RewriteRule ^App/consultations$ App/Consultations/index_consultations.php
+RewriteRule ^App/consultations/([0-9]+)$ App/Consultations/index_consultations.php?id=$1
 
 # STATISTIQUES
 RewriteRule ^App/stats/medecins$ App/Stats/index_stat_consultations.php?stat=medecins
