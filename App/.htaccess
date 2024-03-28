@@ -1,0 +1,20 @@
+Options +FollowSymlinks
+RewriteEngine On
+RewriteBase /Projet-Cabinet-Medical/
+
+
+# MEDECINS
+RewriteRule ^App/medecins$ App/Medecins/index_medecins.php
+RewriteRule ^App/medecins/([0-9]+)$ App/Medecins/index_medecins.php?id=$1
+
+# USAGERS
+RewriteRule ^App/usagers$ App/Usagers/index_usagers.php
+RewriteRule ^App/usagers/([0-9]+)$ App/Usagers/index_usagers.php?id=$1
+
+# CONSULTATIONS
+RewriteRule ^App/consultations$ App/Consultations/index_conultations.php
+RewriteRule ^App/consultations/([0-9]+)$ App/Consultations/index_conultations.php?id=$1
+
+# STATISTIQUES
+RewriteRule ^App/stats/medecins$ App/Stats/index_stat_consultations.php?stat=medecins
+RewriteRule ^App/stats/usagers$ App/Stats/index_stat_usagers.php?stat=usagers
