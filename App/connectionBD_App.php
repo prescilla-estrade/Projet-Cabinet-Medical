@@ -1,8 +1,8 @@
 <?php
-$server = "localhost";
+$server = "mysql-appcabinetmedical.alwaysdata.net";
 $bd = "cabinet_medical_api";
-$login = "admin";
-$mdp = "password";
+$login = "353444_admin";
+$mdp = "35iut44!";
 
 try {
     $linkpdo = new PDO("mysql:host=$server;dbname=$bd", $login, $mdp);
