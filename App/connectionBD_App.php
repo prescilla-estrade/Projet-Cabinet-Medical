@@ -1,6 +1,6 @@
 <?php
 $server = "mysql-appcabinetmedical.alwaysdata.net";
-$bd = "cabinet_medical_api";
+$bd = "appcabinetmedical_cabinet_medical_api";
 $login = "353444_admin";
 $mdp = "35iut44!";
 
