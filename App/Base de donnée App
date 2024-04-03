@@ -18,7 +18,7 @@ CREATE TABLE Usagers(
    lieu_de_naiss TEXT,
    num_securite_sociale TEXT,
    PRIMARY KEY(id_usager),
-   UNIQUE(num_securite_sociale)
+   UNIQUE(num_securite_sociale),
    FOREIGN KEY(id_medecin) REFERENCES Medecin(id_medecin) ON DELETE CASCADE
 );
 
