@@ -55,18 +55,18 @@ CREATE TABLE Consultation(
 
 );
 
-INSERT INTO Usagers (civilite, nom, prenom, sexe, adresse, code_postal, date_de_naiss, lieu_de_naiss, num_securite_sociale) 
+INSERT INTO Usagers (civilite, nom, prenom, sexe, adresse, code_postal, date_de_naiss, lieu_de_naiss, num_securite_sociale, id_medecin) 
 VALUES 
-    ('Mme', 'Adams', 'Alice', 'F','adresse 1', '75000', '2001-01-01', 'Paris', '11111111111'),
-    ('M', 'Brown', 'Bob', 'H', 'adresse 2', '31000', '2002-02-02', 'Toulouse', '22222222222'),
-    ('Mme', 'Clark', 'Charlie', 'F', 'adresse 3', '66000', '1995-03-03', 'Lyon', '33333333333'),
-    ('M', 'Davis', 'David', 'H', 'adresse 4', '55000', '1960-04-04', 'Nice', '44444444444'),
-    ('Mme', 'Evans', 'Eve', 'F', 'adresse 5', '13000', '1970-05-05', 'Marseille', '55555555555'),
-    ('M', 'Frank', 'Frank', 'H', 'adresse 6', '61000', '1980-06-06', 'Rennes', '66666666666'),
-    ('Mme', 'Ghosh', 'Gina', 'F', 'adresse 7', '75000', '1990-07-07', 'Paris', '77777777777'),
-    ('M', 'Hill', 'Harry', 'H', 'adresse 8', '31000', '2000-08-08', 'Toulouse', '88888888888'),
-    ('Mme', 'Irwin', 'Iris', 'F', 'adresse 9', '66000', '2010-09-09', 'Lyon', '99999999999'),
-    ('M', 'Jones', 'John', 'H', 'adresse 10', '55000', '2020-10-10', 'Nice', '10101010101');
+    ('Mme', 'Adams', 'Alice', 'F','adresse 1', '75000', '2001-01-01', 'Paris', '11111111111',1),
+    ('M', 'Brown', 'Bob', 'H', 'adresse 2', '31000', '2002-02-02', 'Toulouse', '22222222222',2),
+    ('Mme', 'Clark', 'Charlie', 'F', 'adresse 3', '66000', '1995-03-03', 'Lyon', '33333333333',3),
+    ('M', 'Davis', 'David', 'H', 'adresse 4', '55000', '1960-04-04', 'Nice', '44444444444',4),
+    ('Mme', 'Evans', 'Eve', 'F', 'adresse 5', '13000', '1970-05-05', 'Marseille', '55555555555',2),
+    ('M', 'Frank', 'Frank', 'H', 'adresse 6', '61000', '1980-06-06', 'Rennes', '66666666666',6),
+    ('Mme', 'Ghosh', 'Gina', 'F', 'adresse 7', '75000', '1990-07-07', 'Paris', '77777777777',10),
+    ('M', 'Hill', 'Harry', 'H', 'adresse 8', '31000', '2000-08-08', 'Toulouse', '88888888888',9),
+    ('Mme', 'Irwin', 'Iris', 'F', 'adresse 9', '66000', '2010-09-09', 'Lyon', '99999999999',5),
+    ('M', 'Jones', 'John', 'H', 'adresse 10', '55000', '2020-10-10', 'Nice', '10101010101',7);
 
 
 INSERT INTO Medecin (nom, prenom, civilite)
