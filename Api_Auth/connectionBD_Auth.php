@@ -1,7 +1,7 @@
 <?php
 $server = "mysql-authentifications.alwaysdata.net";
 $bd = "authentifications_api";
-$login = "authentifications";
+$login = "352915";
 $mdp = "U2p0p2A1*2003";
 
 try {
