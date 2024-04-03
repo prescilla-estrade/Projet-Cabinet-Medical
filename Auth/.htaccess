@@ -1,7 +1,0 @@
-Options +FollowSymlinks
-RewriteEngine On
-RewriteBase /Projet-Cabinet-Medical/
-
-
-# AUTHENTIFICATION
-RewriteRule ^auth$ Auth/auth_api.php

@@ -4,21 +4,20 @@ RewriteBase /Projet-Cabinet-Medical/
 
 
 # AUTHENTIFICATION
-RewriteRule ^auth$ Auth/auth_api.php
-
+RewriteRule ^auth$ Api_Auth/auth_api.php [L,QSA]
 
 # MEDECINS
-RewriteRule ^medecins$ App/Medecins/index_medecins.php
-RewriteRule ^medecins/([0-9]+)$ App/Medecins/index_medecins.php?id=$1
+RewriteRule ^App/medecins$ App_Medecins/index_medecins.php
+RewriteRule ^App/medecins/([0-9]+)$ App_Medecins/index_medecins.php?id=$1
 
 # USAGERS
-RewriteRule ^usagers$ App/Usagers/index_usagers.php
-RewriteRule ^usagers/([0-9]+)$ App/Usagers/index_usagers.php?id=$1
+RewriteRule ^App/usagers$ App_Usagers/index_usagers.php
+RewriteRule ^App/usagers/([0-9]+)$ App_Usagers/index_usagers.php?id=$1
 
 # CONSULTATIONS
-RewriteRule ^consultations$ App/Consultations/index_consultations.php
-RewriteRule ^consultations/([0-9]+)$ App/Consultations/index_consultations.php?id=$1
+RewriteRule ^App/consultations$ App_Consultations/index_consultations.php
+RewriteRule ^App/consultations/([0-9]+)$ App_Consultations/index_consultations.php?id=$1
 
 # STATISTIQUES
-RewriteRule ^stats/medecins$ App/Stats/index_stat_consultations.php?stat=medecins
-RewriteRule ^stats/usagers$ App/Stats/index_stat_usagers.php?stat=usagers
+RewriteRule ^App/stats/medecins$ App_Stats/index_stat_consultations.php?stat=medecins
+RewriteRule ^App/stats/usagers$ App_Stats/index_stat_usagers.php?stat=usagers
