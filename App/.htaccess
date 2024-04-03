@@ -3,17 +3,17 @@ RewriteEngine On
 RewriteBase /Projet-Cabinet-Medical/
 
 # MEDECINS
-RewriteRule ^App/medecins$ App_Medecins/index_medecins.php
-RewriteRule ^App/medecins/([0-9]+)$ App_Medecins/index_medecins.php?id=$1
+RewriteRule ^app/medecins$ App_Medecins/index_medecins.php
+RewriteRule ^app/medecins/([0-9]+)$ App_Medecins/index_medecins.php?id=$1
 
 # USAGERS
-RewriteRule ^App/usagers$ App_Usagers/index_usagers.php
-RewriteRule ^App/usagers/([0-9]+)$ App_Usagers/index_usagers.php?id=$1
+RewriteRule ^app/usagers$ App_Usagers/index_usagers.php
+RewriteRule ^app/usagers/([0-9]+)$ App_Usagers/index_usagers.php?id=$1
 
 # CONSULTATIONS
-RewriteRule ^App/consultations$ App_Consultations/index_consultations.php
-RewriteRule ^App/consultations/([0-9]+)$ App_Consultations/index_consultations.php?id=$1
+RewriteRule ^app/consultations$ App_Consultations/index_consultations.php
+RewriteRule ^app/consultations/([0-9]+)$ App_Consultations/index_consultations.php?id=$1
 
 # STATISTIQUES
-RewriteRule ^App/stats/medecins$ App_Stats/index_stat_consultations.php?stat=medecins
-RewriteRule ^App/stats/usagers$ App_Stats/index_stat_usagers.php?stat=usagers
+RewriteRule ^app/stats/medecins$ App_Stats/index_stat_consultations.php?stat=medecins
+RewriteRule ^app/stats/usagers$ App_Stats/index_stat_usagers.php?stat=usagers
