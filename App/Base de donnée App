@@ -73,7 +73,13 @@ VALUES
     ('Smith', 'Samantha', 'Mme'),
     ('Johnson', 'John', 'M'),
     ('Williams', 'William', 'M'),
-    ('Jones', 'Jennifer', 'Mme');
+    ('Jones', 'Jennifer', 'Mme'),
+    ('Brown', 'Clara', 'Mme'),
+    ('Smith', 'Jane', 'Mme'),
+    ('Michel', 'Jacques', 'M'),
+    ('Hill', 'Charly', 'M'),
+    ('Jack', 'Harry', 'M'),
+    ('Iris', 'Kate', 'Mme');
 
 
 INSERT INTO Consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult, id_consult)
