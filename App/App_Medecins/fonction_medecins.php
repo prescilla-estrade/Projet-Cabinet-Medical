@@ -61,7 +61,7 @@ function update_medecins($id_medecin, $data) {
     return $stmt->rowCount();
 }
 
-function update_medecins_partially($id_medecin, $data) {
+function update_medecins_partially($id, $data) {
     require('../connectionBD_App.php');
     $fields = array_keys($data);
     $placeholders = array_map(function($field) {
@@ -81,7 +81,7 @@ function delete_medecins($id){
     require('../connectionBD_App.php');
     $sqlDelete = "DELETE FROM Medecin WHERE id_medecin = :id_medecin";
     $stmtMedecin = $linkpdo->prepare($sqlDelete);
-    $stmtMedecin->bindParam(':id_medecin', $id_medecin);
+    $stmtMedecin->bindParam(':id_medecin', $id);
     $stmtMedecin->execute();
     return $stmt->rowCount();
 }
