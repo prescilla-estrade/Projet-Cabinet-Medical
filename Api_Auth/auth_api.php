@@ -28,7 +28,7 @@ if($http_method=="POST") {
                 "login" => $login,
                 // Autres données que vous souhaitez inclure dans le JWT
             );
-            $secret = "votre_secret_key"; // Changez ceci par votre clé secrète
+            $secret = "secret_key"; // Changez ceci par votre clé secrète
             $token = generate_jwt($header, $payload, $secret);
 
             // Envoyer le jeton JWT dans la réponse
@@ -42,8 +42,19 @@ if($http_method=="POST") {
         http_response_code(400); // 400 Bad Request
         echo json_encode(array("message" => "Veuillez fournir un login et un mot de passe"));
     }
-} else {
-    http_response_code(405); // 405 Method Not Allowed
-    echo json_encode(array("message" => "Méthode non autorisée"));
+} else if($http_method=="GET") {
+    // Vérifier la validité du jeton JWT dans l'en-tête Authorization
+    $jwt = $_SERVER['HTTP_AUTHORIZATION'];
+    $secret = "secret_key"; // Changez ceci par votre clé secrète
+
+    if(is_jwt_valid($jwt, $secret)) {
+        // Le jeton est valide
+        http_response_code(200);
+        echo json_encode(array("message" => "Le jeton est valide"));
+    } else {
+        // Le jeton n'est pas valide
+        http_response_code(401); // 401 Unauthorized
+        echo json_encode(array("message" => "Le jeton n'est pas valide"));
+    }  
 }
 ?>
