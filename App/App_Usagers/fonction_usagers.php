@@ -15,14 +15,14 @@ function deliver_response($status_code, $status_message, $data=null){
 
 function get_usagers() {
     require('../connectionBD_App.php');
-    $res = $linkpdo->query('SELECT * FROM usagers');
+    $res = $linkpdo->query('SELECT * FROM Usagers');
     $resultat = $res->fetchAll(PDO::FETCH_ASSOC); // Utilisation de PDO::FETCH_ASSOC pour récupérer un tableau associatif
     return $resultat;
 }
 
 function get_usagers_id($id) {
     require('../connectionBD_App.php');
-    $sql = "SELECT * FROM usagers WHERE id_usager = :id_usager";
+    $sql = "SELECT * FROM Usagers WHERE id_usager = :id_usager";
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':id_usager', $id);
     $stmt->execute();
@@ -32,7 +32,7 @@ function get_usagers_id($id) {
 
 function create_usagers($data) {
     require('../connectionBD_App.php');
-    $sql = "INSERT INTO usagers (civilite, nom, prenom, sexe, adresse, code_postal, date_de_naiss, lieu_de_naiss, num_securite_sociale) 
+    $sql = "INSERT INTO Usagers (civilite, nom, prenom, sexe, adresse, code_postal, date_de_naiss, lieu_de_naiss, num_securite_sociale) 
     VALUES (:civilite, :nom, :prenom, :sexe, :adresse, :code_postal, :date_de_naiss, :lieu_de_naiss, :num_securite_sociale)";
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':civilite', $data['civilite']);
@@ -53,7 +53,7 @@ function update_usagers($id, $data) {
     $placeholders = array_map(function($field) {
         return "$field = :$field";
     }, $fields);
-    $sql = "UPDATE usagers SET " . implode(", ", $placeholders) . " where id_usager = :id_usager";
+    $sql = "UPDATE Usagers SET " . implode(", ", $placeholders) . " where id_usager = :id_usager";
     $stmt = $linkpdo->prepare($sql);
     foreach ($data as $key => $value) {
         $stmt->bindValue(":$key", $value);
@@ -69,7 +69,7 @@ function update_usagers_partially($id, $data) {
     $placeholders = array_map(function($field) {
         return "$field = :$field";
     }, $fields);
-    $sql = "UPDATE usagers SET " . implode(", ", $placeholders) . " where id_usager = :id_usager";
+    $sql = "UPDATE Usagers SET " . implode(", ", $placeholders) . " where id_usager = :id_usager";
     $stmt = $linkpdo->prepare($sql);
     foreach ($data as $key => $value) {
         $stmt->bindValue(":$key", $value);
@@ -81,7 +81,7 @@ function update_usagers_partially($id, $data) {
 
 function delete_usagers($id) {
     require('../connectionBD_App.php');
-    $sql = "DELETE FROM usagers WHERE id_usager = :id_usager";
+    $sql = "DELETE FROM Usagers WHERE id_usager = :id_usager";
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':id_usager', $id);
     $stmt->execute();

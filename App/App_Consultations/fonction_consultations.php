@@ -18,13 +18,13 @@ function deliver_response($status_code, $status_message, $data=null){
 }
 
 function get_consultations($linkpdo) {
-    $res = $linkpdo->query('SELECT * FROM consultation');
+    $res = $linkpdo->query('SELECT * FROM Consultation');
     $resultat = $res->fetchAll(PDO::FETCH_ASSOC);
     return $resultat;
 }
 
 function get_consultations_id($id, $linkpdo) {
-    $sql = "SELECT * FROM consultation WHERE id_consult = :id_consult";
+    $sql = "SELECT * FROM Consultation WHERE id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':id_consult', $id);
     $stmt->execute();
@@ -34,7 +34,7 @@ function get_consultations_id($id, $linkpdo) {
 
 function create_consultations($data){
     require('../connectionBD_App.php');
-    $sqlCreate = "INSERT INTO consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult) VALUES (:id_usager, :id_medecin, :date_consult, :heure_consult, :duree_consult)";
+    $sqlCreate = "INSERT INTO Consultation (id_usager, id_medecin, date_consult, heure_consult, duree_consult) VALUES (:id_usager, :id_medecin, :date_consult, :heure_consult, :duree_consult)";
     $stmt = $linkpdo->prepare($sqlCreate);
     $stmt->bindParam(':id_usager', $data['id_usager']);
     $stmt->bindParam(':id_medecin', $data['id_medecin']);
@@ -50,7 +50,7 @@ function update_consultations($id, $data) {
     $placeholders = array_map(function($field) {
         return "$field = :$field";
     }, $fields);
-    $sql = "UPDATE consultation SET " . implode(", ", $placeholders) . " where id_consult = :id_consult";
+    $sql = "UPDATE Consultation SET " . implode(", ", $placeholders) . " where id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sql);
     foreach ($data as $key => $value) {
         $stmt->bindValue(":$key", $value);
@@ -66,7 +66,7 @@ function update_consultations_partially($id, $data) {
     $placeholders = array_map(function($field) {
         return "$field = :$field";
     }, $fields);
-    $sql = "UPDATE consultation SET " . implode(", ", $placeholders) . " where id_consult = :id_consult";
+    $sql = "UPDATE Consultation SET " . implode(", ", $placeholders) . " where id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sql);
     foreach ($data as $key => $value) {
         $stmt->bindValue(":$key", $value);
@@ -78,7 +78,7 @@ function update_consultations_partially($id, $data) {
 
 function delete_consultations($id){
     require('../connectionBD_App.php');
-    $sqlDelete = "DELETE FROM consultation WHERE id_consult = :id_consult";
+    $sqlDelete = "DELETE FROM Consultation WHERE id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sqlDelete);
     $stmt->bindParam(':id_consult', $id_consult);
     $stmt->execute();
