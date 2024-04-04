@@ -83,7 +83,7 @@ function delete_medecins($id){
     $stmtMedecin = $linkpdo->prepare($sqlDelete);
     $stmtMedecin->bindParam(':id_medecin', $id);
     $stmtMedecin->execute();
-    return $stmt->rowCount();
+    return $stmtMedecin->rowCount();
 }
 
 ?>
