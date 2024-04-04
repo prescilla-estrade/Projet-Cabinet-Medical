@@ -24,7 +24,7 @@ if($http_method=="POST") {
                 "typ" => "JWT",
                 "alg" => "HS256"
             );
-            $expiration_time = time() + (60 * 60); // Exemple : définir l'expiration à 1 heure après maintenant
+            $expiration_time = time() + 3600;
             $payload = array(
                 "login" => $login,
             );
