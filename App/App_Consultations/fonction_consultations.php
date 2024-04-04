@@ -18,12 +18,14 @@ function deliver_response($status_code, $status_message, $data=null){
 }
 
 function get_consultations($linkpdo) {
+    require('../connectionBD_App.php');
     $res = $linkpdo->query('SELECT * FROM Consultation');
     $resultat = $res->fetchAll(PDO::FETCH_ASSOC);
     return $resultat;
 }
 
 function get_consultations_id($id, $linkpdo) {
+    require('../connectionBD_App.php');
     $sql = "SELECT * FROM Consultation WHERE id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':id_consult', $id);
