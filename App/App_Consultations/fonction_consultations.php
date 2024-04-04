@@ -17,14 +17,14 @@ function deliver_response($status_code, $status_message, $data=null){
     echo $json_response;
 }
 
-function get_consultations($linkpdo) {
+function get_consultations() {
     require('../connectionBD_App.php');
     $res = $linkpdo->query('SELECT * FROM Consultation');
     $resultat = $res->fetchAll(PDO::FETCH_ASSOC);
     return $resultat;
 }
 
-function get_consultations_id($id, $linkpdo) {
+function get_consultations_id($id) {
     require('../connectionBD_App.php');
     $sql = "SELECT * FROM Consultation WHERE id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sql);

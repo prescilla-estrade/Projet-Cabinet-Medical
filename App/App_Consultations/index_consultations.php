@@ -7,14 +7,14 @@ switch ($http_method){
     case "GET" :
         if(isset($_GET['id'])) {
             $id = htmlspecialchars($_GET['id']);
-            $matchingData = get_consultations_id($id,$linkpdo);
+            $matchingData = get_consultations_id($id);
             if ($matchingData) {
                 deliver_response(200, "Success", $matchingData);
             } else {
                 deliver_response(404, "Not Found");
             }
         } else {
-            $matchingData = get_consultations($linkpdo);
+            $matchingData = get_consultations();
             deliver_response(200, "Success", $matchingData);
         }
         break;
