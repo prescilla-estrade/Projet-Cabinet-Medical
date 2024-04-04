@@ -32,18 +32,20 @@ function get_usagers_id($id) {
 
 function create_usagers($data) {
     require('../connectionBD_App.php');
-    $sql = "INSERT INTO Usagers (civilite, nom, prenom, sexe, adresse, code_postal, date_de_naiss, lieu_de_naiss, num_securite_sociale) 
-    VALUES (:civilite, :nom, :prenom, :sexe, :adresse, :code_postal, :date_de_naiss, :lieu_de_naiss, :num_securite_sociale)";
+    $sql = "INSERT INTO Usagers (civilite, nom, prenom, sexe, adresse, ville, code_postal, date_de_naiss, lieu_de_naiss, num_securite_sociale, id_medecin) 
+    VALUES (:civilite, :nom, :prenom, :sexe, :adresse, :ville, :code_postal, :date_de_naiss, :lieu_de_naiss, :num_securite_sociale, :id_medecin)";
     $stmt = $linkpdo->prepare($sql);
     $stmt->bindParam(':civilite', $data['civilite']);
     $stmt->bindParam(':nom', $data['nom']);
     $stmt->bindParam(':prenom', $data['prenom']);
     $stmt->bindParam(':sexe', $data['sexe']);
     $stmt->bindParam(':adresse', $data['adresse']);
+    $stmt->bindParam(':ville', $data['ville']);
     $stmt->bindParam(':code_postal', $data['code_postal']);
     $stmt->bindParam(':date_de_naiss', $data['date_de_naiss']);
     $stmt->bindParam(':lieu_de_naiss', $data['lieu_de_naiss']);
     $stmt->bindParam(':num_securite_sociale', $data['num_securite_sociale']);
+    $stmt->bindParam(':id_medecin', $data['id_medecin']);
     return $stmt->execute();
 }
 
