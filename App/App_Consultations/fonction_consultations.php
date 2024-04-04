@@ -82,7 +82,7 @@ function delete_consultations($id){
     require('../connectionBD_App.php');
     $sqlDelete = "DELETE FROM Consultation WHERE id_consult = :id_consult";
     $stmt = $linkpdo->prepare($sqlDelete);
-    $stmt->bindParam(':id_consult', $id_consult);
+    $stmt->bindParam(':id_consult', $id);
     $stmt->execute();
     return $stmt->rowCount();
 }
