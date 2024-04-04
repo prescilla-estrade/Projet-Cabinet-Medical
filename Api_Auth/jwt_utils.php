@@ -1,8 +1,8 @@
 <?php
 
-function generate_jwt($headers, $payload, $secret) {
+function generate_jwt($headers, $payload, $secret, $expiration_time) {
 	$headers_encoded = base64url_encode(json_encode($headers));
-
+	$payload['exp'] = $expiration_time;
 	$payload_encoded = base64url_encode(json_encode($payload));
 
 	$signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", $secret, true);

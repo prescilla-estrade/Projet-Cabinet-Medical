@@ -24,16 +24,17 @@ if($http_method=="POST") {
                 "typ" => "JWT",
                 "alg" => "HS256"
             );
+            $expiration_time = time() + (60 * 60); // Exemple : définir l'expiration à 1 heure après maintenant
             $payload = array(
                 "login" => $login,
-                // Autres données que vous souhaitez inclure dans le JWT
             );
             $secret = "secret_key"; // Changez ceci par votre clé secrète
-            $token = generate_jwt($header, $payload, $secret);
-
+            $token = generate_jwt($header, $payload, $secret, $expiration_time);
+        
             // Envoyer le jeton JWT dans la réponse
             http_response_code(200);
             echo json_encode(array("message" => "Authentification réussie", "token" => $token));
+        
         } else {
             http_response_code(401); // 401 Unauthorized
             echo json_encode(array("message" => "Login ou mot de passe incorrect"));
