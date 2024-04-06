@@ -1,6 +1,5 @@
-# Cabinet-Medical
+# Projet Cabinet-Medical
 
-# Iyamu Mélanie
-# Estrade Prescilla 
-
-# Groupe C
+## Iyamu Mélanie
+## Estrade Prescilla 
+## Equipe C4
