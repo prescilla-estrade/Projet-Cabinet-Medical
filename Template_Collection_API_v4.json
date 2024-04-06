@@ -493,12 +493,12 @@
 	"variable": [
 		{
 			"key": "url_auth",
-			"value": "https://compte1.alwaysdata.net/auth",
+			"value": "https://authentifications.alwaysdata.net/auth",
 			"type": "string"
 		},
 		{
 			"key": "url_app",
-			"value": "https://compte1.alwaysdata.net/app",
+			"value": "https://appcabinetmedical.alwaysdata.net/app",
 			"type": "string"
 		},
 		{
