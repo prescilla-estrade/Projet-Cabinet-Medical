@@ -27,10 +27,12 @@ if($http_method=="POST") {
             $expiration_time = time() + 3600;
             $payload = array(
                 "login" => $login,
+                "exp" => $expiration_time,
             );
             $secret = "secret_key"; // Changez ceci par votre clé secrète
+            $expiration_time = time() + 3600; // Expiration dans 1 heure
             $token = generate_jwt($header, $payload, $secret, $expiration_time);
-        
+
             // Envoyer le jeton JWT dans la réponse
             http_response_code(200);
             echo json_encode(array("message" => "Authentification réussie", "token" => $token));
@@ -45,10 +47,10 @@ if($http_method=="POST") {
     }
 } else if($http_method=="GET") {
     // Vérifier la validité du jeton JWT dans l'en-tête Authorization
-    $jwt = $_SERVER['HTTP_AUTHORIZATION'];
+    $jwt = get_bearer_token();
     $secret = "secret_key"; // Changez ceci par votre clé secrète
 
-    if(is_jwt_valid($jwt, $secret)) {
+    if($jwt !== null && is_jwt_valid($jwt, $secret)) {
         // Le jeton est valide
         http_response_code(200);
         echo json_encode(array("message" => "Le jeton est valide"));
